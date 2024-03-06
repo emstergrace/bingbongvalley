@@ -1,53 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Inst { get; private set; } = null;
 
     [Header("Managers")]
+
     [Header("Singletons")]
     [SerializeField] private ResourceLibrary resourceLibrary = null;
     [SerializeField] private OptionsManager optionsManager = null;
     [Header("")]
-    [SerializeField] private Menu pauseMenu = null; 
+    [SerializeField] private Menu pauseMenu = null;
 
     private bool gamePaused = false; public static bool IsGamePaused { get { return Inst.gamePaused; } }
     private Stack<Menu> activeMenuUI = new Stack<Menu>(); public static Stack<Menu> ActiveMenuUI { get { return Inst.activeMenuUI; } }
 
-    private Controls ctrls; public Controls Control { get { return ctrls; } }
-    public static Controls.GameplayActions Gameplay { get { return Inst.ctrls.gameplay; } }
-    public static Controls.UiActions UIKeys { get { return Inst.ctrls.ui; } }
+    public static Menu TopmostMenu { get; private set; } = null;
 
     private void Awake() {
         Inst = this;
-        ctrls = new Controls();
 
-        if (!ResourceLibrary.Inst)
+        if (resourceLibrary != null && !ResourceLibrary.Inst)
             resourceLibrary.Init();
-        if (!OptionsManager.Inst)
+        if (optionsManager != null && !OptionsManager.Inst)
             optionsManager.Init();
-
-        Control.gameplay.Enable();
-        Control.ui.Enable();
     }
 
 	private void Update() {
 
-        if (activeMenuUI.Count > 0) {
-            if (UIKeys.pausegame.triggered || UIKeys.cancel.triggered) {
-                PopMenuUI();
-                if (activeMenuUI.Count == 0) {
-                    PauseGame(false);
-                }
+        if (TopmostMenu != null) {
+            if (InputManager.CancelAction.triggered) {
+                TopmostMenu.PopMenu();
             }
         }
         else {
-            if (UIKeys.pausegame.triggered) {
-                PauseGame(true);
+            if (InputManager.CancelAction.triggered) {
                 PushMenuUI(pauseMenu);
+                InputManager.GameplayMap.Disable();
             }
         }
         
@@ -66,23 +58,42 @@ public class GameManager : MonoBehaviour
         return val;
 	} // End of PauseGame().
 
+    public static bool AllowPlayerInput() {
+
+        if (GameManager.TopmostMenu != null) {
+            return false;
+        }
+        return true;
+    }
 	#region active menu methods
 	public static void PushMenuUI(Menu menu) {
-        if (ActiveMenuUI.Count > 0)
-            ActiveMenuUI.Peek().gameObject.SetActive(false);
+        if (menu == null) return;
+
+        if (TopmostMenu != null)
+            TopmostMenu.gameObject.SetActive(false);
+
         menu.gameObject.SetActive(true);
+        menu.OnEnter();
+
         ActiveMenuUI.Push(menu);
+        TopmostMenu = menu;
 	} // End of PushMenuUI().
     
-    public static void PopMenuUI() {
-        ActiveMenuUI.Pop().gameObject.SetActive(false);
-        if (ActiveMenuUI.Count > 0)
-            ActiveMenuUI.Peek().gameObject.SetActive(true);
+    public static void PopMenuUI() { // Call from Menu and nowhere else
+        if (ActiveMenuUI.Count == 0) return;
+
+		ActiveMenuUI.Pop().gameObject.SetActive(false);
+		
+		if (ActiveMenuUI.Count > 0) {
+            Menu topMenu = ActiveMenuUI.Peek();
+            topMenu.gameObject.SetActive(true);
+			TopmostMenu = topMenu;
+            // Do we activate TopmostMenu.OnEnter() here?
+		}
+		else {
+			TopmostMenu = null;
+            InputManager.GameplayMap.Enable();
+		}
 	} // End of PopMenuUI().
 	#endregion
-
-	private void OnDisable() {
-        Control.gameplay.Disable();
-        Control.ui.Disable();
-	}
 }
