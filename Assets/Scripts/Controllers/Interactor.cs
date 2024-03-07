@@ -14,13 +14,8 @@ public class Interactor : MonoBehaviour
 
 	public List<GameObject> interactObjs = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
-    {
-		if (Input.GetKeyDown(KeyCode.E) && interactObjs.Count > 0) {
-			interactObjs[0].GetComponent<IInteractable>().Interact();
-		}
-
+	private void Start() {
+		InputManager.GameplayMap.FindAction("Interaction").performed += (x) => TryInteract();
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -34,5 +29,10 @@ public class Interactor : MonoBehaviour
 		if (interactObjs.Contains(other.gameObject)) interactObjs.Remove(other.gameObject);
 	}
 
+	private void TryInteract() {
+		if (interactObjs.Count > 0) {
+			interactObjs[0].GetComponent<IInteractable>().Interact();
+		}
+	} // End of TryInteract().
 
 }
