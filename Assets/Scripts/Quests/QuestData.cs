@@ -50,6 +50,7 @@ public enum QuestStatus
 {
     Inactive = 0,
     Active = 1,
-    Completed = 2,
-    Failed = 3
+    FinishedUncompleted = 2,
+    Completed = 3,
+    Failed = 4
 } // End of QuestStatus enum.

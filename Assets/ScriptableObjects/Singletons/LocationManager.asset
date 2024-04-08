@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c53d1c24d75084cbfe0f8b49013618, type: 3}
   m_Name: LocationManager
   m_EditorClassIdentifier: 
+  locationList:
+  - locationName: 
+    locationScene:
+      sceneAsset: {fileID: 0}
+      scenePath: 

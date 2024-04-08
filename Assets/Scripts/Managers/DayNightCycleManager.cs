@@ -1,34 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DayNightCycleManager : MonoBehaviour
 {
     public static DayNightCycleManager Inst { get; private set; }
 
-	[SerializeField] private GameTime TimeStart;
 	[SerializeField] private Date DateStart;
-
-	public delegate void NewDate(int day, int month, int year);
-	public static NewDate NewDateCallback;
 
 	public delegate void OnTime(int minute, int hour);
 	public static OnTime OnTimeChanged;
+
+	public delegate void NewDate(int day);
+	public static NewDate NewDateCallback;
 
 	[SerializeField] private TimeStruct NewDayDefault;
 
 	public bool IsTimePaused { get; private set; } = false;
 
-	public static GameTime GameTime { get; private set; } = new GameTime();
 	public static Date CurrentDate { get; private set; } = new Date();
 
 	private void Awake() {
 		Inst = this;
-	} // End of Awake().
 
-	private void Start() {
-		InvokeRepeating("AdvanceTime", 1f, 0.5f);
-	} // End of Start().
+		CurrentDate.newDay += (day) => NewDateCallback?.Invoke(day);
+
+	} // End of Awake().
 
 	public void LoadTime() {
 		// Load Time from save here
@@ -40,114 +38,28 @@ public class DayNightCycleManager : MonoBehaviour
 
 	public void AdvanceDay() {
 		CurrentDate.AdvanceDay();
-		NewDateCallback?.Invoke(CurrentDate.Day, CurrentDate.Month, CurrentDate.Year);
 	} // End of AdvanceDay().
-
-	public void AdvanceTime() {
-		if (!IsTimePaused && !GameManager.IsGamePaused) {
-
-			GameTime.AdvanceTime();
-			OnTimeChanged?.Invoke(GameTime.CurrentMinute, GameTime.CurrentHour);
-		}
-	} // End of AdvanceTime().
 
 } // End of DayNightCycleManager.
 
-public class GameTime
-{
-	public int MinutesInHour { get; private set; } = 60;
-	public int HoursInDay { get; private set; } = 24;
-	public int TimeScale = 120; // Every second is 2 minutes
-
-	public int CurrentMinute { get; private set; } = 0;
-	public int CurrentHour { get; private set; } = 0;
-
-	public TimeStruct GetCurrentTime { get { return new TimeStruct(CurrentMinute, CurrentHour); } }
-
-	public GameTime(int m = 0, int h = 8) {
-		CurrentMinute = m;
-		CurrentHour = h;
-	} // End of GameTime Constructor.
-
-	public TimeStruct AdvanceTime() {
-		CurrentMinute++;
-		if (CurrentMinute >= MinutesInHour) {
-			CurrentMinute = 0;
-			CurrentHour++;
-		}
-
-		return GetCurrentTime;
-	} // End of AdvanceTime().
-
-} // End of Time.
-
+[System.Serializable]
 public class Date
 {
-	private int DaysInMonth = 30;
-	private int MonthsInYear = 12;
-	public int Day { get; private set; } = 1;
-	public int Month { get; private set; } = 1;
-	public int Year { get; private set; } = 1;
+	public int Day = 1;
+	// Still have to do day of the week
 
-	public int Season { get; private set; } = 1;
+	public Action<int> newDay;
 
-	public Seasons CurrentSeason { get; private set; } = Seasons.Spring;
-
-	public Date(int startDay = 1, int startMonth = 1, int startYear = 500) {
+	public Date(int startDay = 1) {
 		Day = startDay;
-		Month = startMonth;
-		Year = startYear;
 	} // End of Date Constructor
 
 	public void AdvanceDay() {
 		Day++;
-		if (Day > DaysInMonth) {
-			Day = 1;
-			AdvanceMonth();
-		}
+
+		newDay.Invoke(Day);
 	} // End of AdvanceDay().
-
-	private void AdvanceMonth() {
-		Month++;
-		if (Month > MonthsInYear) {
-			Month = 1;
-			AdvanceYear();
-		}
-
-		AdvanceSeason();
-
-	} // End of AdvanceMonth().
-
-	private void AdvanceYear() {
-		Year++;
-	} // End of AdvanceYear().
-
-	private void AdvanceSeason() {
-		switch (Month) {
-			case 1:
-				Season = 1;
-				CurrentSeason = Seasons.Spring;
-				break;
-			case 4:
-				Season = 2;
-				CurrentSeason = Seasons.Summer;
-				break;
-			case 7:
-				Season = 3;
-				CurrentSeason = Seasons.Autumn;
-				break;
-			case 10:
-				Season = 3;
-				CurrentSeason = Seasons.Winter;
-				break;
-		}
-	} // End of AdvanceSeason().
-
-	public Seasons GetCurrentSeason() {
-		return CurrentSeason;
-	} // End of GetCurrentSeason().
-
-} // End of Date.
+}
 
 [System.Serializable]
 public struct TimeStruct
@@ -159,12 +71,36 @@ public struct TimeStruct
 		minute = m;
 		hour = h;
 	} // End of TimeStruct().
-}
 
-public enum Seasons
-{
-	Spring = 1,
-	Summer = 2,
-	Autumn = 3,
-	Winter = 4
-}
+	public TimeStruct(TimeStruct t) {
+		minute = t.minute;
+		hour = t.hour;
+	} // End of TimeStruct().
+
+	public override bool Equals(object obj) {
+		if (obj == null || GetType() != obj.GetType()) return false;
+
+		TimeStruct ts = (TimeStruct) obj;
+
+		return minute == ts.minute && hour == ts.hour;
+	} // End of Equals() override
+
+	public static bool operator ==(TimeStruct t1, TimeStruct t2) {
+		return t1.Equals(t2);
+	} // End of == override
+
+	public static bool operator !=(TimeStruct t1, TimeStruct t2) {
+		return !t1.Equals(t2);
+	} // End of != override
+
+	public override int GetHashCode() {
+		unchecked {
+			int hash = 13;
+			hash = hash * 31 + minute.GetHashCode();
+			hash = hash * 31 + hour.GetHashCode();
+			return hash;
+		}
+	} // End of GetHashCode() override.
+
+} // End of TimeStruct struct.
+
