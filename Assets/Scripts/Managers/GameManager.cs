@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
             resourceLibrary.Init();
         if (optionsManager != null && !OptionsManager.Inst)
             optionsManager.Init();
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
 	private void Update() {
