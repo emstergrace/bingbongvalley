@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{dbdd2f86-f60c-48eb-941a-bc2df53cebaa}">
+		<property name="name">
+			<value>Warlocks</value>
+		</property>
+		<relationship name="folder">
+			<destination>{399a27e8-6a62-48b1-8713-c58f930b6d82}</destination>
+		</relationship>
+	</object>
+</objects>
