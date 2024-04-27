@@ -170,11 +170,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 450373096
-      Data2: 1256677709
-      Data3: 969794179
-      Data4: 118459589
-    Path: event:/Music/Minigames/Fishing/Mx_Mini_FishingBGM
+      Data1: 819839013
+      Data2: 1247039699
+      Data3: -1732897104
+      Data4: -1188067051
+    Path: event:/Music/Minigames/Fishing/Mx_Fishing_BGM
   Event: 
   PlayEvent: 1
   StopEvent: 2
@@ -470,6 +470,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 861617007}
   m_CullTransparentMesh: 1
+--- !u!1 &952901529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 952901530}
+  - component: {fileID: 952901531}
+  m_Layer: 0
+  m_Name: FMODEvents
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &952901530
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952901529}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1002928150}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &952901531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952901529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f7e66c082bc425499090903dfa20fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <FishingBGM>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &981671880
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +608,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1002928150}
-  - component: {fileID: 1002928149}
+  - component: {fileID: 1002928151}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -565,25 +616,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1002928149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1002928148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 903aa099225d59341bc77fdcc513b655, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkNoise: {fileID: 0}
-  footNoises: []
-  sounds: []
-  walkNoiseBuffer: 1
-  sceneAudio: []
-  menuMusic: {fileID: 0}
-  mainTheme: {fileID: 0}
 --- !u!4 &1002928150
 Transform:
   m_ObjectHideFlags: 0
@@ -596,9 +628,22 @@ Transform:
   m_LocalPosition: {x: 92.22398, y: 5.3056936, z: -2.7545104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 952901530}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1002928151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002928148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3029d0ea9f5cc4bafbb7320021ad86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1390427040
 GameObject:
   m_ObjectHideFlags: 0
