@@ -13,12 +13,16 @@ namespace TheKiwiCoder {
         public GameObject gameObject;
         public Transform transform;
         public Animator animator;
-        public Rigidbody physics;
+        public Rigidbody2D physics;
         public NavMeshAgent agent;
-        public SphereCollider sphereCollider;
-        public BoxCollider boxCollider;
-        public CapsuleCollider capsuleCollider;
+        public CircleCollider2D circleCollider;
+        public BoxCollider2D boxCollider;
+        public CapsuleCollider2D capsuleCollider;
         public CharacterController characterController;
+        public BaseEntity baseEntity;
+        public BaseMoveController moveController;
+        public BaseCombatController combatController;
+        public AIPerception perception;
         // Add other game specific systems here
 
         public static Context CreateFromGameObject(GameObject gameObject) {
@@ -27,14 +31,16 @@ namespace TheKiwiCoder {
             context.gameObject = gameObject;
             context.transform = gameObject.transform;
             context.animator = gameObject.GetComponent<Animator>();
-            context.physics = gameObject.GetComponent<Rigidbody>();
+            context.physics = gameObject.GetComponent<Rigidbody2D>();
             context.agent = gameObject.GetComponent<NavMeshAgent>();
-            context.sphereCollider = gameObject.GetComponent<SphereCollider>();
-            context.boxCollider = gameObject.GetComponent<BoxCollider>();
-            context.capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
+            context.circleCollider = gameObject.GetComponent<CircleCollider2D>();
+            context.boxCollider = gameObject.GetComponent<BoxCollider2D>();
+            context.capsuleCollider = gameObject.GetComponent<CapsuleCollider2D>();
             context.characterController = gameObject.GetComponent<CharacterController>();
-            
-            // Add whatever else you need here...
+            context.baseEntity = gameObject.GetComponent<BaseEntity>();
+            context.moveController = gameObject.GetComponent<BaseMoveController>();
+            context.combatController = gameObject.GetComponent<BaseCombatController>();
+            context.perception = gameObject.GetComponent<AIPerception>();
 
             return context;
         }
