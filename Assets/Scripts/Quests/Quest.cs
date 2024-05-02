@@ -37,6 +37,7 @@ public class Quest
 	} // End of Quest() constructor.
 
     public static Quest CreateFromData(QuestData data) {
+        if (data == null) return null;
         return new Quest(data.ID, data.Name, data.Description, data.isRepeatable, data.maxRepeatAmount, data.objectives);
 	} // End of CreateFromData().
 
@@ -50,22 +51,25 @@ public class Quest
     } // End of SetQuestStatus().
 
     public void LoadQuest() {
-        RegisterEventsOnObjective();
 
         // Load quest from save
-        if (!SaveGame.Exists("quest " + ID)) return;
-        QuestSaveData qsd = SaveGame.Load<QuestSaveData>("quest " + ID);
+        if (!SaveGame.Exists("quest_" + ID)) return;
+        QuestSaveData qsd = SaveGame.Load<QuestSaveData>("quest_" + ID);
+        status = (QuestStatus)qsd.questStatus;
         for (int i = 0; i < objectives.Count; i++) {
             objectives[i].SetProgress(qsd.objectiveProgress[i]);
             OnObjProgressChanged?.Invoke(qsd.objectiveProgress[i], objectives[i], this);
         }
-
+        if (status == QuestStatus.Completed || status == QuestStatus.Failed) {
+            UnregisterEventsOnObjective();
+		}
     } // End of LoadQuest().
 
     public void SaveQuest() {
         QuestSaveData qsd = new QuestSaveData();
         qsd.questID = ID;
-
+        qsd.questStatus = (int)status;
+        Debug.Log("Saving quest " + ID);
         Dictionary<int, int> objectiveValues = new Dictionary<int, int>();
         for (int i = 0; i < objectives.Count; i++) {
             objectiveValues.Add(i, objectives[i].CurrentAmount);
@@ -73,7 +77,7 @@ public class Quest
 
         qsd.objectiveProgress = new Dictionary<int, int>(objectiveValues);
 
-        SaveGame.Save<QuestSaveData>("quest " + ID, qsd);
+        SaveGame.Save<QuestSaveData>("quest_" + ID, qsd);
     } // End of SaveQuest().
 
     public void Activate() {
@@ -85,9 +89,11 @@ public class Quest
     public void CompleteQuest() {
         UnregisterEventsOnObjective();
         Debug.Log("Completed quest " + Name);
+        // Save it somewhere else to a finished quest list? idk
     } // End of CompleteQuest().
 
     public void NotifyTaskProgressChanged(int newVal, Objective obj) {
+        OnObjProgressChanged?.Invoke(newVal, obj, this);
 
     } // End of NotifyTaskProgrsesChanged().
 

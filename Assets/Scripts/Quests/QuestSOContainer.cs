@@ -1,3 +1,4 @@
+using BayatGames.SaveGameFree;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +17,19 @@ public class QuestSOContainer : SingletonScriptableObject<QuestSOContainer>
 
 	public void LoadQuestProgress() { //This probably needs to be moved to QuestManager
 		for (int i = 0; i < questList.Count; i++) {
-			//questList[i].LoadQuest();
+			if (SaveGame.Exists("quest_" + questList[i].ID)) {
+				QuestManager.Inst.LoadQuest(questList[i].ID);
+			}
 		}
 	} // End of LoadQuestProgress().
+
+	public void ResetQuestProgress() {
+		for (int i = 0; i < questList.Count; i++) {
+			if (SaveGame.Exists("quest_" + questList[i].ID)) {
+				QuestManager.Inst.ResetQuest(questList[i].ID);
+			}
+		}
+	} // End of ResetQuestProgress().
 
 	void InitDictionary() {
 		for(int i = 0; i < questList.Count; i++) {

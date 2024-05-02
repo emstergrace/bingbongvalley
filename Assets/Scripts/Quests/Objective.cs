@@ -12,7 +12,7 @@ public class Objective
     [SerializeField] private ObjectiveType type; public ObjectiveType Type { get { return type; } }
     [SerializeField] private string description; public string baseDescription { get { return description; } }
     [SerializeField] private string notifier; public string Notifier { get { return notifier; } }
-    public string Description { get { return string.Format(description, Completed, currentAmount, requiredAmount); } } // Format is {0] for completed status, {1} for current ammount, {2} for required amount
+    public string Description { get { return string.Format(description, Completed, currentAmount, requiredAmount); } } // Format is {0} for completed status, {1} for current amount, {2} for required amount
     
     public bool Completed { get; private set; } = false;
     [SerializeField] private bool isRequired = true; public bool IsRequired { get { return isRequired; } }
@@ -87,7 +87,7 @@ public class Objective
 
     public static string TravelNotifier = "visited ";
     public static string BountyNotifier = "killed ";
-    public static string ItemNotifier = "picked up";
+    public static string ItemNotifier = "picked up ";
     public static string DeliveryNotifier = "delivered ";
     public static string TalkNotifier = "talked to ";
 

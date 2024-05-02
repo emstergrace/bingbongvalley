@@ -5,16 +5,18 @@ using System;
 
 public class QuestManager : MonoBehaviour
 {
-
+    //Trigger example:
+    // EventManager.TriggerEvent(Objective.StringNotifier, new Dictionary<string, object> { { "picked up " + itemName, 1 } });
     public static QuestManager Inst { get; private set; }
     
     public static QuestSOContainer QuestListContainer { get; private set; }
 
     public List<Quest> Quests = new List<Quest>();
     private Dictionary<int, Quest> QuestDictionary = new Dictionary<int, Quest>();
+    private int numActiveQuests = 0;
 
-    public Action<Quest> QuestCompletedEvent;
-    public Action<Quest> QuestAcceptedEvent;
+    public static Action<Quest> QuestCompletedEvent;
+    public static Action<Quest> QuestAcceptedEvent;
 
 	private void Awake() {
         Inst = this;
@@ -24,9 +26,27 @@ public class QuestManager : MonoBehaviour
 	void Start()
     {
         QuestListContainer = QuestSOContainer.Inst;
-        QuestListContainer.LoadQuestProgress();
+
+        Debug.LogWarning("Loading quest progress on game start");
+        //QuestListContainer.LoadQuestProgress();// Use this line to load quest progress
+
         EventManager.StartListening(Objective.StringNotifier, OnObjectiveTriggered);
     } // End of Start().
+
+	public void SaveQuests() {
+        foreach(Quest q in Quests) {
+            q.SaveQuest();
+		}
+	} // End of SaveQuests().
+
+	public void LoadQuest(int questID) {
+        ActivateQuest(questID);
+        QuestDictionary[questID].LoadQuest();
+	} // End of LoadQuest().
+
+    public void ResetQuest(int questID) {
+        QuestDictionary[questID].ResetQuest();
+	} // End of ResetQuest().
 
     private void OnObjectiveTriggered(Dictionary<string, object> trigger) {
 
@@ -49,10 +69,12 @@ public class QuestManager : MonoBehaviour
 	} // End of ActivateQuest().
 
     private void AddQuest(Quest quest) {
-        quest.Activate();
-        Quests.Add(quest);
-        QuestDictionary.Add(quest.ID, quest);
-        QuestAcceptedEvent?.Invoke(quest);
+        if (!QuestDictionary.ContainsKey(quest.ID)) {
+            quest.Activate();
+            Quests.Add(quest);
+            QuestDictionary.Add(quest.ID, quest);
+            QuestAcceptedEvent?.Invoke(quest);
+        }
     } // End of AddQuest().
 
     public Quest RetrieveQuest(int ID) {
@@ -68,5 +90,9 @@ public class QuestManager : MonoBehaviour
                 quest.TriggerPossibleObjective(trigger, amt);
 		}
 	} // End of TriggerObjectives().
+
+	private void OnApplicationQuit() {
+        SaveQuests();
+	}
 
 } // End of QuestManager.

@@ -43,6 +43,7 @@ public class QuestData : ScriptableObject
 [System.Serializable]
 public class QuestSaveData{
     public int questID;
+    public int questStatus;
     public Dictionary<int, int> objectiveProgress = new Dictionary<int, int>();
 }
 
