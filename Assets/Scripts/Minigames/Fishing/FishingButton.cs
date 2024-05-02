@@ -29,7 +29,7 @@ public class FishingButton : MonoBehaviour
 		requiredDirection = reqInput;
 		//moveSpeed = speed;
 
-		InputManager.GameplayMap.FindAction("Move").started += HandleInput;
+		GameInputManager.GameplayMap.FindAction("Move").started += HandleInput;
 		onFishButtonPressed += IsPressedCorrectly;
 	} // End of Init().
 
@@ -37,6 +37,7 @@ public class FishingButton : MonoBehaviour
 		if (buttonRect.position.x < 100f && isActiveButton && !succeeded) { // We missed the button input
 			isActiveButton = false;
 			onFishButtonPressed?.Invoke(false);
+			FishingController.Inst.MissedButton();
 			return;
 		}
 
@@ -64,7 +65,8 @@ public class FishingButton : MonoBehaviour
 	} // End of HandleInput().
 
 	private void IsPressedCorrectly(bool val) {
-		StartCoroutine(AfterPressedCorout(val));
+		if (gameObject.activeSelf)
+			StartCoroutine(AfterPressedCorout(val));
 	} // End of IsPressedCorrectly().
 
 	private IEnumerator AfterPressedCorout(bool success) {
@@ -87,13 +89,16 @@ public class FishingButton : MonoBehaviour
 		
 	} // End of AfterPressedCorout().
 
-	private void Disable() {
+	public void Disable() {
+
+		GameInputManager.GameplayMap.FindAction("Move").started -= HandleInput;
+		onFishButtonPressed -= FishingController.Inst.OnPressedButton;
 
 		StopAllCoroutines();
 		succeeded = false;
 
-		FishingController.Inst.fishingOrder.Dequeue();
-		onFishButtonPressed -= FishingController.Inst.OnPressedButton;
+		FishingButton t = null;
+		FishingController.Inst.fishingOrder.TryDequeue(out t);
 
 		FishingButton nextButton = null;
 		if (FishingController.Inst.fishingOrder.TryPeek(out nextButton)) {

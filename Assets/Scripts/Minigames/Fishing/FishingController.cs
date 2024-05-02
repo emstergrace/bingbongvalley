@@ -12,6 +12,7 @@ public class FishingController : MonoBehaviour
     [SerializeField] private Transform fishingContainer = null;
     [SerializeField] private GameObject fishingCanvas = null;
     [SerializeField] private GameObject fishingLine = null; public GameObject FishingLine { get { return fishingLine; } }
+    [SerializeField] private Slider reelLine = null;
     [SerializeField] private GameObject buttonPrefab = null;
 
     [Header("Segments")]
@@ -55,7 +56,6 @@ public class FishingController : MonoBehaviour
         leftArrow = ResourceLibrary.LeftSprite;
         rightArrow = ResourceLibrary.RightSprite;
 
-        StartFishing(1);
     }
 
     // Update is called once per frame
@@ -66,27 +66,67 @@ public class FishingController : MonoBehaviour
 		}
     }
 
-    public void StartFishing(int difficulty) {
+    public void InitializeFishing(int difficulty = 1) {
+        fishingCanvas.SetActive(true);
+        StartFishing(difficulty);
+        isFishing = true;
+        GameManager.isFishingActive = true;
+	}
+
+    private void StartFishing(int difficulty) {
         numRequiredButtons = difficulty * baseNumRequiredButtons;
         numSucceededButtons = numRequiredButtons / 2;
+        reelLine.maxValue = numRequiredButtons;
+        reelLine.value = numSucceededButtons;
+        UpdateReel(numSucceededButtons);
         SpawnSegment();
     }
+
+    private void UpdateReel(int val) {
+        reelLine.value = val;
+	}
+
+    public void StopFishing() {
+
+        while (fishingOrder.Count > 0) {
+            fishingOrder.Peek().Disable();
+		}
+
+        fishingCanvas.SetActive(false);
+        isFishing = false;
+        GameManager.isFishingActive = false;
+
+        StopAllCoroutines();
+
+        DidWeFish.Inst.FinishedFishing();
+    } // End of StopFishing().
 
     public void OnPressedButton(bool isSuccess) {
         if (isSuccess) {
             numSucceededButtons++;
             if (numSucceededButtons > numRequiredButtons) {
-                Debug.Log("Succeeded fishing");
+                EventManager.TriggerEvent(Objective.StringNotifier, new Dictionary<string, object> { { "picked up fish", 1 } });
+                StopFishing();
 			}
 		}
         else {
-            numSucceededButtons--;
+            numSucceededButtons -= 1;
+            Debug.Log("Missed button");
             if (numSucceededButtons < 0) {
-                Debug.Log("Failed fishing");
+                StopFishing();
 			}
 		}
+        UpdateReel(numSucceededButtons);
 	} // End of OnPressedButton().
 
+    public void MissedButton() {
+        Debug.Log(numSucceededButtons);
+        numSucceededButtons -= 1;
+        if (numSucceededButtons < 0) {
+            StopFishing();
+		}
+        UpdateReel(numSucceededButtons);
+	} // End of MissedButton().
 
     private void SpawnSegment() {
         int amount = baseAmtPerSegment * difficulty + Random.Range(-1, 1);
