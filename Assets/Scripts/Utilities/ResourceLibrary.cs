@@ -17,8 +17,14 @@ public class ResourceLibrary : SingletonScriptableObject<ResourceLibrary>
 	[Header("Cloud Gazing")]
 	[SerializeField] private GameObject cloudPrefab; public static GameObject CloudPrefab { get { return Inst.cloudPrefab; } }
 	[SerializeField] private List<Sprite> cloudBG; public static List<Sprite> CloudBG { get { return Inst.cloudBG; } }
-	[SerializeField] private List<Sprite> cloudSprites; public static List<Sprite> CloudSprites { get { return Inst.cloudSprites; } }
+	[SerializeField] private List<CloudLayers> cloudSprites; 
+	private Dictionary<int, List<Sprite>> cloudSpriteDict; public static Dictionary<int, List<Sprite>> CloudSprites { get { return Inst.cloudSpriteDict; } }
 
+	[Header("Layers")]
+	[SerializeField] private LayerMask playerMask; public static LayerMask PlayerMask { get { return Inst.playerMask; } }
+	[SerializeField] private LayerMask enemyMask; public static LayerMask EnemyMask { get { return Inst.enemyMask; } }
+	[SerializeField] private LayerMask attackMask; public static LayerMask AttackMask { get { return Inst.attackMask; } }
+	[SerializeField] private LayerMask characterBlockerMask; public static LayerMask CharacterBlockerMask { get { return Inst.characterBlockerMask; } }
 
 	[Header("Miscellaneous")]
 	private string settingsFileLoc; public static string SettingsFileLoc { get { return Inst.settingsFileLoc; } }
@@ -29,5 +35,10 @@ public class ResourceLibrary : SingletonScriptableObject<ResourceLibrary>
 		base.Init();
 		settingsFileLoc = Application.persistentDataPath + "/settings.ini";
 		settingsFile = new IniFile(@settingsFileLoc);
+
+		cloudSpriteDict = new Dictionary<int, List<Sprite>>();
+		for (int i = 0; i < cloudSprites.Count; i++) {
+			cloudSpriteDict.Add(cloudSprites[i].layer, cloudSprites[i].cloudSprites);
+		}
 	}
 }

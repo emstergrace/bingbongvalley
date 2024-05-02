@@ -6,16 +6,16 @@ using UnityEngine.InputSystem;
 
 public class ConversationInputManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (ConversationManager.Instance != null) {
-            InputManager.UIMap.FindAction("Selection").performed += HandleInput;
-            InputManager.UIMap.FindAction("Submit").performed += (x) => SelectOption();
-		}
-    } // End of Start().
 
-    private void HandleInput(InputAction.CallbackContext action) {
+
+	private void OnEnable() {
+        if (ConversationManager.Instance != null && GameInputManager.Inst != null) {
+            GameInputManager.UIMap.FindAction("Selection").performed += HandleInput;
+            GameInputManager.UIMap.FindAction("Submit").performed += (x) => SelectOption();
+		}
+    }
+
+	private void HandleInput(InputAction.CallbackContext action) {
         if (ConversationManager.Instance.IsConversationActive) {
             Vector2 input = action.ReadValue<Vector2>();
             if (input == Vector2.up) {
@@ -32,4 +32,11 @@ public class ConversationInputManager : MonoBehaviour
             ConversationManager.Instance.PressSelectedOption();
         }
 	} // End of SelectOption().
+
+	private void OnDisable() {
+        if (ConversationManager.Instance != null && GameInputManager.Inst != null) {
+            GameInputManager.UIMap.FindAction("Selection").performed -= HandleInput;
+            GameInputManager.UIMap.FindAction("Submit").performed -= (x) => SelectOption();
+        }
+    }
 }

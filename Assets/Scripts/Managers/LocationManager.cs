@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 [CreateAssetMenu(fileName = "LocationManager", menuName = "Singletons/Location Manager")]
 public class LocationManager : SingletonScriptableObject<LocationManager>
@@ -18,6 +19,14 @@ public class LocationManager : SingletonScriptableObject<LocationManager>
 			LocationDictionary.Add(locationList[i].locationName, locationList[i].locationScene);
 		}
 	}
+
+	public static SceneReference GetScene(string name) {
+		if (LocationDictionary.ContainsKey(name))
+			return LocationDictionary[name];
+		return null;
+	} // End of GetScene().
+
+
 
 	[System.Serializable]
 	public struct LocationStruct

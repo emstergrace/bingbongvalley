@@ -13,7 +13,23 @@ MonoBehaviour:
   m_Name: LocationManager
   m_EditorClassIdentifier: 
   locationList:
-  - locationName: 
+  - locationName: MainMenu
     locationScene:
-      sceneAsset: {fileID: 0}
-      scenePath: 
+      sceneAsset: {fileID: 102900000, guid: 9e625656a6549934f9940bfd83aaf86b, type: 3}
+      scenePath: Assets/Scenes/MainMenu.unity
+  - locationName: TestScene
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 8288a8f34197a4b48a984ecddc5c8515, type: 3}
+      scenePath: Assets/Scenes/Testing Scenes/InternalTestOne.unity
+  - locationName: CloudGaze
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: eabdbb81a13d45347954f34f7ecb63fc, type: 3}
+      scenePath: Assets/Scenes/Testing Scenes/CloudTest.unity
+  - locationName: DungeonTest
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 52d55c25227298447a3811c3945cbce5, type: 3}
+      scenePath: Assets/Scenes/Testing Scenes/DungeonTest.unity
+  - locationName: Fishing
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 43028affdc4556f4c8ee51fc68ca7438, type: 3}
+      scenePath: Assets/Scenes/Testing Scenes/FishingTest.unity

@@ -73,9 +73,12 @@ namespace DialogueEditor
         private eState m_state;
         private float m_stateTime;
         
-        private Conversation m_conversation;
-        private SpeechNode m_currentSpeech;
+        private Conversation m_conversation; public Conversation CurrentConversation { get { return m_conversation; } }
+        private SpeechNode m_currentSpeech; public SpeechNode CurrentSpeechNode { get { return m_currentSpeech; } }
         private OptionNode m_selectedOption;
+
+        public bool NextNodeNull() { return m_currentSpeech.ConnectionType == Connection.eConnectionType.None; }
+        public bool NextNodeSpeech() { return m_currentSpeech.ConnectionType == Connection.eConnectionType.Speech; }
 
         // Selection options
         private List<UIConversationButton> m_uiOptions;
@@ -448,14 +451,29 @@ namespace DialogueEditor
             SetColorAlpha(NameText, 1 - t);
         }
 
+        public void DoConversationInteraction() {
+            if (IsConversationActive) {
+				switch (m_currentSpeech.ConnectionType) {
+					case Connection.eConnectionType.None:
+						EndConversation();
+						break;
+					case Connection.eConnectionType.Speech:
+						IsAutoAdvance();
+						break;
+					case Connection.eConnectionType.Option:
+						PressSelectedOption();
+						break;
+				}
+
+			}
+		}
 
 
+		//--------------------------------------
+		// Do Speech
+		//--------------------------------------
 
-        //--------------------------------------
-        // Do Speech
-        //--------------------------------------
-
-        private void SetupSpeech(SpeechNode speech)
+		public void SetupSpeech(SpeechNode speech)
         {
             if (speech == null)
             {
@@ -550,9 +568,6 @@ namespace DialogueEditor
             }            
         }
 
-
-
-
         //--------------------------------------
         // Option Selected
         //--------------------------------------
@@ -604,7 +619,7 @@ namespace DialogueEditor
         }
 
         /// <summary> Returns the first, valid child connection to a Speech Node. </summary>
-        private SpeechNode GetValidSpeechOfNode(ConversationNode parentNode)
+        public SpeechNode GetValidSpeechOfNode(ConversationNode parentNode)
         {
             if (parentNode.ConnectionType != Connection.eConnectionType.Speech) { return null; }
             if (parentNode.Connections.Count == 0) { return null; }
@@ -679,11 +694,11 @@ namespace DialogueEditor
                     {
                         UIConversationButton uiOption = CreateButton();
                         SpeechNode next = GetValidSpeechOfNode(m_currentSpeech);
-
+                        // Removed End button on conversations
                         // If there was no valid speech node (due to no conditions being met) this becomes a None button type
                         if (next == null)
                         {
-                            uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                            //uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
                         }
                         // Else, valid speech node found
                         else
@@ -694,8 +709,8 @@ namespace DialogueEditor
                     }
                     else if (m_currentSpeech.ConnectionType == Connection.eConnectionType.None)
                     {
-                        UIConversationButton uiOption = CreateButton();
-                        uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
+                        //UIConversationButton uiOption = CreateButton();
+                        //uiOption.SetupButton(UIConversationButton.eButtonType.End, null, endFont: m_conversation.EndConversationFont);
                     }
                 }
 

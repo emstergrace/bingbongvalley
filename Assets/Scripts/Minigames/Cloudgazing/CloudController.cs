@@ -70,7 +70,7 @@ public class CloudController : MonoBehaviour
         yield return null;
         for (int i = 0; i < amount; i++) {
             SpawnCloud(layer);
-            yield return new WaitForSeconds(Random.Range(1f, 5f));
+            yield return new WaitForSeconds(Random.Range(5f, 15f));
 		}
 
         yield return new WaitForSeconds(timeBetweenCloudSegments * Random.Range(0.9f, 1.1f));
@@ -83,6 +83,9 @@ public class CloudController : MonoBehaviour
 	} // End of PickCloudSprite().
 
     private void SpawnCloud(int layer) {
+        if (cloudCount >= 30) {
+            return;
+		}
         GameObject cloud = LeanPool.Spawn(ResourceLibrary.CloudPrefab, new Vector3(spawnXTransform.localPosition.x, Random.Range(Screen.height * 0.1f, Screen.height * 0.9f), 0f), Quaternion.identity, cloudContainer);
         cloud.transform.localScale = new Vector3(Random.Range(minCloudScale, maxCloudScale), Random.Range(minCloudScale, maxCloudScale), 1f) / (3.0f/layer);
         cloud.GetComponent<Image>().sprite = PickCloudSprite(layer);

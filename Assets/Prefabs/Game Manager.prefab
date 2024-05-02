@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 272649420167032184}
   - component: {fileID: 7713150636616909500}
   - component: {fileID: 8321610847113695705}
+  - component: {fileID: 69362956849221597}
+  - component: {fileID: 5560486981558992826}
+  - component: {fileID: 5961330329033243379}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -50,6 +53,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceLibrary: {fileID: 11400000, guid: 934d827204c59bd49aa8aeee83c558c5, type: 2}
   optionsManager: {fileID: 11400000, guid: 69db8756b465c5c4cb226288b1f4db20, type: 2}
+  questLibrary: {fileID: 11400000, guid: 17e21868ba621a04fbb158890bc7d736, type: 2}
+  locationManager: {fileID: 11400000, guid: 0d6762985cb859a47b2568a75e0ca8c5, type: 2}
   pauseMenu: {fileID: 0}
 --- !u!114 &7238139647611764242
 MonoBehaviour:
@@ -104,3 +109,43 @@ MonoBehaviour:
   NPCContainer: {fileID: 0}
   genericActivities: []
   npcsList: []
+--- !u!114 &69362956849221597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837972369378755837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e359a55f2ee587b46ac18e18bbdf2d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Quests: []
+--- !u!114 &5560486981558992826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837972369378755837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920e8c8b79056e5468f8337acb78406e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5961330329033243379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837972369378755837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903aa099225d59341bc77fdcc513b655, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundVCAPath: vca:/VCA Name
+  ambienceVCAPath: vca:/VCA Name
+  musicVCAPath: vca:/VCA Name

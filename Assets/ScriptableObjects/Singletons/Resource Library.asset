@@ -23,31 +23,51 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 139b9375a2454b74b82c83acad1e0206, type: 3}
   - {fileID: 21300000, guid: ca174089180c17a49a8feb30ec53c1b3, type: 3}
   cloudSprites:
-  - {fileID: 21300000, guid: a7ae2ed2792baf34d93809eebc7212a8, type: 3}
-  - {fileID: 21300000, guid: 87ffbd2a2fa064645a1cfe418e058873, type: 3}
-  - {fileID: 21300000, guid: a9edc56307222bd40a430a5def02222b, type: 3}
-  - {fileID: 21300000, guid: edc8f8a6e26394c4f9b47b27b22afbf3, type: 3}
-  - {fileID: 21300000, guid: c1b42f4df9844d74d9ba967cedea1722, type: 3}
-  - {fileID: 21300000, guid: 6d2d13faa1f5c0645a952d383c74dbd3, type: 3}
-  - {fileID: 21300000, guid: 65c28413de3dc364995c36d8da2a90c5, type: 3}
-  - {fileID: 21300000, guid: e769ff09ede05d542b1dcb8dd8d40569, type: 3}
-  - {fileID: 21300000, guid: 21b1fea7a200ee245b40bbf5d851a698, type: 3}
-  - {fileID: 21300000, guid: 74ace7ff87d17f6489c7e8771be3004b, type: 3}
-  - {fileID: 21300000, guid: 0844f25be97f71541a09bfa06ec0c2d3, type: 3}
-  - {fileID: 21300000, guid: c1a751e03034aa34c836bd1b27bedb1b, type: 3}
-  - {fileID: 21300000, guid: 168674c85e3e2e947a1f6e625ed1a206, type: 3}
-  - {fileID: 21300000, guid: 1f9416ce0d3ea354eb862b81cc8bb081, type: 3}
-  - {fileID: 21300000, guid: 95c813853dfea244f91be29e0c832727, type: 3}
-  - {fileID: 21300000, guid: c39cfd1b264cc7d4d8df8f20b751671e, type: 3}
-  - {fileID: 21300000, guid: fbf4132635e25e942a887131f7731c1a, type: 3}
-  - {fileID: 21300000, guid: f46eb3d21c148f9468dcf60849babe9f, type: 3}
-  - {fileID: 21300000, guid: 7f8ad98829a3ea84b9fe38e32fcd9b91, type: 3}
-  - {fileID: 21300000, guid: 2f44c63179ea4674a89f3e034705318f, type: 3}
-  - {fileID: 21300000, guid: c51aeee662e58764ea22a87286b96d54, type: 3}
-  - {fileID: 21300000, guid: 97379ea8a5aa3844e882c48f6d406fd1, type: 3}
-  - {fileID: 21300000, guid: 9549dbba95d7dbd46aea83e341af4a24, type: 3}
-  - {fileID: 21300000, guid: 26d2df377ef4bc040a52aad241a53e8c, type: 3}
-  - {fileID: 21300000, guid: dcb06c40d190c7c4ca1a60869a874947, type: 3}
-  - {fileID: 21300000, guid: 5acd41a47d4aa264c965804d4ab043ab, type: 3}
-  - {fileID: 21300000, guid: 97c54f2ab261c3648b7b87287dd51a97, type: 3}
-  - {fileID: 21300000, guid: 769f9f7c72be3d947b760e0a748ef382, type: 3}
+  - layer: 1
+    cloudSprites:
+    - {fileID: 21300000, guid: 5accf4b4b0acb274b8e2376b53bccfcf, type: 3}
+    - {fileID: 21300000, guid: 98de85b8743c3144ea1b97438ccc44c2, type: 3}
+    - {fileID: 21300000, guid: 1e115c157fa486544afccd222275ed92, type: 3}
+    - {fileID: 21300000, guid: 130be96106fab1a4e8d7294e79c5998f, type: 3}
+    - {fileID: 21300000, guid: 1c9fd6090eaa014458de7f005ae83866, type: 3}
+    - {fileID: 21300000, guid: 415e5ba1b2a00bb469737a3460e0c76d, type: 3}
+    - {fileID: 21300000, guid: a9ba680ab55043e4aa0a190079c804dd, type: 3}
+  - layer: 2
+    cloudSprites:
+    - {fileID: 21300000, guid: f71e10411e5579149bc3e81481ed93d6, type: 3}
+    - {fileID: 21300000, guid: 8d98a52b6373bd345ab3607d8271de68, type: 3}
+    - {fileID: 21300000, guid: a9e92068b9485f94ca8df8565abdec8e, type: 3}
+    - {fileID: 21300000, guid: 3dd65b11e14cb50438d331012b8ac211, type: 3}
+    - {fileID: 21300000, guid: c10920330082a3747bafefa5d7e1934e, type: 3}
+    - {fileID: 21300000, guid: 91ad0ccecee93db499cf1d9e2ddab78f, type: 3}
+    - {fileID: 21300000, guid: 49a78018b93acd74ca0f25e97a737e2e, type: 3}
+  - layer: 3
+    cloudSprites:
+    - {fileID: 21300000, guid: ddb029311ea4fbf438541a46267f4822, type: 3}
+    - {fileID: 21300000, guid: a465b56f00ea85d4b8a538bb0ea1fd05, type: 3}
+    - {fileID: 21300000, guid: 199bf001001949947945efeb7e9c0c9a, type: 3}
+    - {fileID: 21300000, guid: a3b39562157b99d4aaf9749a3c5668ea, type: 3}
+    - {fileID: 21300000, guid: afb5572f99cddb54a91a2f8d68a9b068, type: 3}
+    - {fileID: 21300000, guid: 416dc2bda81c3bc47b29e9009ca4417c, type: 3}
+    - {fileID: 21300000, guid: 92b4e1a9e6d34ac4099976c1c6056ee3, type: 3}
+  - layer: 4
+    cloudSprites:
+    - {fileID: 21300000, guid: 269823eadae2a5647a7ca79758c6b42d, type: 3}
+    - {fileID: 21300000, guid: c85850739d75f0a489830d0284e9b138, type: 3}
+    - {fileID: 21300000, guid: 95654721f7b2ae3439f82fa2ce466798, type: 3}
+    - {fileID: 21300000, guid: 8b9e23ac9c56ae94d90fd54cdafcaf80, type: 3}
+    - {fileID: 21300000, guid: ecc7b42e9321ef14081ea0162cfc8a04, type: 3}
+    - {fileID: 21300000, guid: 5e690a2d40c44684d93762ca8a61d491, type: 3}
+    - {fileID: 21300000, guid: 08235a0f7bc118d45a69bc86aed4dda3, type: 3}
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  attackMask:
+    serializedVersion: 2
+    m_Bits: 256
+  characterBlockerMask:
+    serializedVersion: 2
+    m_Bits: 512
