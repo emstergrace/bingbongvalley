@@ -27,9 +27,17 @@ public class CameraController : MonoBehaviour
         lastTargetPosition = target.position;
     }
 
-    // Update is called once per frame
-    private void FixedUpdate()
+    public void SetTarget(Transform t) {
+        target = t;
+	} // End of SetTarget().
+
+	// Update is called once per frame
+	private void FixedUpdate()
     {
+        if (target == null) {
+            SetTarget(PlayerController.Inst.transform);
+		}
+
         if (Vector3.SqrMagnitude(lastTargetPosition - target.position) > moveThreshold ) {
             float xMoveDelta = (target.position.x - lastTargetPosition.x);
             float yMoveDelta = (target.position.y - lastTargetPosition.y);

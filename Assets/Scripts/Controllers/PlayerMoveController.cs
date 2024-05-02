@@ -6,17 +6,20 @@ using UnityEngine.InputSystem;
 public class PlayerMoveController : BaseMoveController
 {
 
-	private void Awake() {
+	public static PlayerMoveController Inst { get; private set; }
 
+	private void Awake() {
+		Inst = this;
 	}
 
 	private void Start() {
-		InputManager.GameplayMap.FindAction("Move").performed += HandleInput;
-		InputManager.GameplayMap.FindAction("Move").canceled += (x) => HandleInput(Vector2.zero);
+		GameInputManager.GameplayMap.FindAction("Move").performed += HandleInput;
+		GameInputManager.GameplayMap.FindAction("Move").canceled += (x) => HandleInput(Vector2.zero);
 	}
 
 	public void HandleInput(InputAction.CallbackContext action) {
-		HandleInput(action.ReadValue<Vector2>());
+		if (GameManager.AllowPlayerInput())
+			HandleInput(action.ReadValue<Vector2>());
 	} // End of HandleInput().
 
 	public override void HandleInput(Vector2 input) {

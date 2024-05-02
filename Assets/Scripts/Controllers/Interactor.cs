@@ -15,17 +15,17 @@ public class Interactor : MonoBehaviour
 	public List<GameObject> interactObjs = new List<GameObject>();
 
 	private void Start() {
-		InputManager.GameplayMap.FindAction("Interaction").performed += (x) => TryInteract();
+		GameInputManager.GameplayMap.FindAction("Interact").performed += (x) => TryInteract();
 	}
 
-	private void OnTriggerEnter(Collider other) {
+	private void OnTriggerEnter2D(Collider2D other) {
 		IInteractable obj = other.GetComponent<IInteractable>();
 		if (obj != null && !interactObjs.Contains(other.gameObject)) {
 			interactObjs.Add(other.gameObject);
 		}
 	}
 
-	private void OnTriggerExit(Collider other) {
+	private void OnTriggerExit2D(Collider2D other) {
 		if (interactObjs.Contains(other.gameObject)) interactObjs.Remove(other.gameObject);
 	}
 

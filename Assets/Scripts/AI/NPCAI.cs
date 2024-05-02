@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// For every NPC, this should be a prefab, which we reference in NPC Manager.
 /// </summary>
-public class NPCAI : BaseAI, IInteractable
+public class NPCAI : AIMemory, IInteractable
 {
 
      public Activity currentActivity { get; private set; } = null;
