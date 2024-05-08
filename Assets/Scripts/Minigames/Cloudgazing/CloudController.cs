@@ -15,13 +15,13 @@ public class CloudController : MonoBehaviour
     [SerializeField] private float maxCloudScale = 1.2f;
     [SerializeField] private float moveScale = 25f;
     [SerializeField] private float timeBetweenCloudSegments = 7.5f;
-    [SerializeField] private float timeToDespawn = 60f;
+    [SerializeField] private int maxCloudPerLayer = 8;
     [SerializeField] private int maxCloudPerSegment = 6;
     [SerializeField] private int minCloudPerSegment = 3;
-    private int cloudCount = 0;
 
     private bool isGazing = false;
     private int numCloudLayers = 0;
+    private int[] numCloudsinLayer;
 
 
     // Start is called before the first frame update
@@ -44,6 +44,11 @@ public class CloudController : MonoBehaviour
 
 	private void StartCloudGazing() {
         numCloudLayers = ResourceLibrary.CloudSprites.Keys.Count;
+        numCloudsinLayer = new int[numCloudLayers];
+        for (int i = 0; i < numCloudLayers; i++) {
+            numCloudsinLayer[i] = 0;
+		}
+
         SpawnSegment();
 	}
 
@@ -62,14 +67,17 @@ public class CloudController : MonoBehaviour
         int amount = 1;
         for (int i = 0; i < numCloudLayers; i++) {
             amount = Random.Range(minCloudPerSegment, maxCloudPerSegment);
-            StartCoroutine(SpawnClouds(amount * (numCloudLayers - i), i+1));
+            StartCoroutine(SpawnClouds(amount * (numCloudLayers - i), i));
 		}
     } // End off SpawnSegment().
 
     private IEnumerator SpawnClouds(int amount, int layer) {
         yield return null;
         for (int i = 0; i < amount; i++) {
-            SpawnCloud(layer);
+            if (numCloudsinLayer[layer] < maxCloudPerLayer) {
+                numCloudsinLayer[layer]++;
+                SpawnCloud(layer);
+            }
             yield return new WaitForSeconds(Random.Range(5f, 15f));
 		}
 
@@ -79,34 +87,29 @@ public class CloudController : MonoBehaviour
 	}
 
     private Sprite PickCloudSprite(int layer) {
-        return ResourceLibrary.CloudSprites[layer][Random.Range(0, ResourceLibrary.CloudSprites[layer].Count)];
+        return ResourceLibrary.CloudSprites[layer+1][Random.Range(0, ResourceLibrary.CloudSprites[layer+1].Count)];
 	} // End of PickCloudSprite().
 
     private void SpawnCloud(int layer) {
-        if (cloudCount >= 30) {
-            return;
-		}
         GameObject cloud = LeanPool.Spawn(ResourceLibrary.CloudPrefab, new Vector3(spawnXTransform.localPosition.x, Random.Range(Screen.height * 0.1f, Screen.height * 0.9f), 0f), Quaternion.identity, cloudContainer);
-        cloud.transform.localScale = new Vector3(Random.Range(minCloudScale, maxCloudScale), Random.Range(minCloudScale, maxCloudScale), 1f) / (3.0f/layer);
+        cloud.transform.localScale = new Vector3(Random.Range(minCloudScale, maxCloudScale), Random.Range(minCloudScale, maxCloudScale), 1f) / (3.0f/(layer+1));
         cloud.GetComponent<Image>().sprite = PickCloudSprite(layer);
         cloud.GetComponent<Canvas>().sortingOrder = layer;
-        cloudCount++;
         StartCoroutine(MoveCloud(cloud, layer));
     } // End of SpawnCloud().
 
 
 	IEnumerator MoveCloud(GameObject cloud, int layer) {
-        float t = 0;
         cloud.transform.localPosition = new Vector3(spawnXTransform.transform.localPosition.x, cloud.transform.localPosition.y, 0f);
+        RectTransform tf = cloud.GetComponent<RectTransform>();
         yield return null;
         float randomVal = Random.Range(0.8f, 1.1f);
-        while (t < timeToDespawn) {
-            t += Time.deltaTime;
+        while (cloud.transform.position.x > tf.rect.width * -1 * tf.localScale.x) {
             cloud.transform.localPosition = cloud.transform.localPosition + Vector3.left * Time.deltaTime * Screen.width/(moveScale * randomVal * 3f/layer);
             yield return null;
 		}
+        numCloudsinLayer[layer]--;
         LeanPool.Despawn(cloud);
-        cloudCount--;
         yield return null;
 	} // End of MoveCloud().
 
