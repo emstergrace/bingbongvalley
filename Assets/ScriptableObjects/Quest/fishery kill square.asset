@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b7e171109b2e44fa9737b87f0ed23c, type: 3}
+  m_Name: fishery kill square
+  m_EditorClassIdentifier: 
+  ID: -219040
+  _name: Fishery + Kill square
+  description: kill square
+  isRepeatable: 0
+  maxRepeatAmount: 0
+  objectives:
+  - type: 1
+    description: kill square {1}/{2}
+    notifier: square
+    isRequired: 1
+    requiredAmount: 1
+    currentAmount: 0
+  - type: 2
+    description: get fish {1}/{2}
+    notifier: fish
+    isRequired: 1
+    requiredAmount: 1
+    currentAmount: 0

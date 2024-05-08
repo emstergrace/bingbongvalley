@@ -15,18 +15,10 @@ public class QuestSOContainer : SingletonScriptableObject<QuestSOContainer>
 		InitDictionary();
 	} // End of Init().
 
-	public void LoadQuestProgress() { //This probably needs to be moved to QuestManager
-		for (int i = 0; i < questList.Count; i++) {
-			if (SaveGame.Exists("quest_" + questList[i].ID)) {
-				QuestManager.Inst.LoadQuest(questList[i].ID);
-			}
-		}
-	} // End of LoadQuestProgress().
-
 	public void ResetQuestProgress() {
 		for (int i = 0; i < questList.Count; i++) {
 			if (SaveGame.Exists("quest_" + questList[i].ID)) {
-				QuestManager.Inst.ResetQuest(questList[i].ID);
+				SaveGame.Delete("quest_" + questList[i].ID);
 			}
 		}
 	} // End of ResetQuestProgress().

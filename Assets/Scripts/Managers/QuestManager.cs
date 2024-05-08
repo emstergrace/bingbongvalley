@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BayatGames.SaveGameFree;
 using System;
 
 public class QuestManager : MonoBehaviour
@@ -33,7 +34,7 @@ public class QuestManager : MonoBehaviour
         EventManager.StartListening(Objective.StringNotifier, OnObjectiveTriggered);
     } // End of Start().
 
-	public void SaveQuests() {
+	public void SaveAllQuests() {
         foreach(Quest q in Quests) {
             q.SaveQuest();
 		}
@@ -43,6 +44,14 @@ public class QuestManager : MonoBehaviour
         ActivateQuest(questID);
         QuestDictionary[questID].LoadQuest();
 	} // End of LoadQuest().
+
+    public void LoadAllQuests() {
+        for (int i = 0; i < QuestSOContainer.QuestList.Count; i++) {
+            if (SaveGame.Exists("quest_" + QuestSOContainer.QuestList[i].ID)) {
+                Inst.LoadQuest(QuestSOContainer.QuestList[i].ID);
+            }
+        }
+    }
 
     public void ResetQuest(int questID) {
         QuestDictionary[questID].ResetQuest();
@@ -92,7 +101,7 @@ public class QuestManager : MonoBehaviour
 	} // End of TriggerObjectives().
 
 	private void OnApplicationQuit() {
-        SaveQuests();
+        SaveAllQuests();
 	}
 
 } // End of QuestManager.
