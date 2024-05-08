@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        questLibrary.LoadQuestProgress();
+        QuestManager.Inst.LoadAllQuests();
 
         PlayerController.Inst.Teleport(position);
         PlayerController.Inst.gameObject.SetActive(true);
