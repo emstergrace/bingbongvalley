@@ -9,11 +9,15 @@ public class FishingController : MonoBehaviour
 {
     public static FishingController Inst { get; private set; }
 
+    [SerializeField] private GameObject buttonPrefab = null;
+
+    [Header("Canvas Objects")]
     [SerializeField] private Transform fishingContainer = null;
-    [SerializeField] private GameObject fishingCanvas = null;
+    [SerializeField] private GameObject fishingCanvas = null; public RectTransform canvasRect { get { return fishingCanvas.GetComponent<RectTransform>(); } }
     [SerializeField] private GameObject fishingLine = null; public GameObject FishingLine { get { return fishingLine; } }
     [SerializeField] private Slider reelLine = null;
-    [SerializeField] private GameObject buttonPrefab = null;
+    [SerializeField] private GameObject resultPanel = null;
+    [SerializeField] private TMPro.TextMeshProUGUI resultText;
 
     [Header("Segments")]
     [SerializeField] private int baseAmtPerSegment = 4;
@@ -29,10 +33,6 @@ public class FishingController : MonoBehaviour
     [SerializeField] private Transform spawnFive = null;
 
     private Sprite fishSprite;
-    private Sprite upArrow;
-    private Sprite downArrow;
-    private Sprite leftArrow;
-    private Sprite rightArrow;
 
     public Queue<FishingButton> fishingOrder { get; private set; } = new Queue<FishingButton>();
 
@@ -51,82 +51,79 @@ public class FishingController : MonoBehaviour
     void Start()
     {
         fishSprite = ResourceLibrary.FishSprite;
-        upArrow = ResourceLibrary.UpSprite;
-        downArrow = ResourceLibrary.DownSprite;
-        leftArrow = ResourceLibrary.LeftSprite;
-        rightArrow = ResourceLibrary.RightSprite;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isFishing) {
-
-		}
     }
 
     public void InitializeFishing(int difficulty = 1) {
-        fishingCanvas.SetActive(true);
-        StartFishing(difficulty);
-        isFishing = true;
-        GameManager.isFishingActive = true;
-	}
+        if (!Inst.isFishing) {
+            StartFishing(difficulty);
+
+            Inst.isFishing = true;
+            GameManager.isFishingActive = true;
+        }
+    } // End of InitializeFishing().
 
     private void StartFishing(int difficulty) {
+        fishingCanvas.SetActive(true);
         numRequiredButtons = difficulty * baseNumRequiredButtons;
         numSucceededButtons = numRequiredButtons / 2;
+
         reelLine.maxValue = numRequiredButtons;
-        reelLine.value = numSucceededButtons;
         UpdateReel(numSucceededButtons);
+
         SpawnSegment();
-    }
+    } // End of StartFishing().
+    
+    public void StopFishing(bool caughtFish = false) {
+        while (Inst.fishingOrder.Count > 0) {
+            Inst.fishingOrder.Peek().Disable(); // We peek instead of dequeueing here because Disable() will dequeue
+        }
+        StopAllCoroutines();
+        //DidWeFish.Inst.FinishedFishing();
+        StartCoroutine(StopFishingCorout(caughtFish));
+    } // End of StopFishing().
+
+    private IEnumerator StopFishingCorout(bool caughtFish) { // This is going to need something better, but for now, a placeholder
+        if (caughtFish) {
+            resultText.text = "You caught a fish!";
+		}
+        else {
+            resultText.text = "The fish got away!";
+		}
+
+        resultPanel.SetActive(true);
+        yield return new WaitForSeconds(3f);
+
+        numSucceededButtons = numRequiredButtons / 2;
+
+        resultPanel.SetActive(false);
+        fishingCanvas.SetActive(false);
+
+        Inst.isFishing = false;
+        GameManager.isFishingActive = false;
+
+	} // End of StopFishingCorout().
 
     private void UpdateReel(int val) {
         reelLine.value = val;
-	}
-
-    public void StopFishing() {
-
-        while (fishingOrder.Count > 0) {
-            fishingOrder.Peek().Disable();
-		}
-
-        fishingCanvas.SetActive(false);
-        isFishing = false;
-        GameManager.isFishingActive = false;
-
-        StopAllCoroutines();
-
-        DidWeFish.Inst.FinishedFishing();
-    } // End of StopFishing().
+	} // End of UpdateReel().
 
     public void OnPressedButton(bool isSuccess) {
         if (isSuccess) {
-            numSucceededButtons++;
-            if (numSucceededButtons > numRequiredButtons) {
+            numSucceededButtons += 1;
+            UpdateReel(numSucceededButtons);
+            if (numSucceededButtons == numRequiredButtons) {
                 EventManager.TriggerEvent(Objective.StringNotifier, new Dictionary<string, object> { { "picked up fish", 1 } });
-                StopFishing();
+                StopFishing(true);
 			}
 		}
         else {
             numSucceededButtons -= 1;
-            Debug.Log("Missed button");
+            UpdateReel(numSucceededButtons);
             if (numSucceededButtons < 0) {
-                StopFishing();
+                StopFishing(false);
 			}
 		}
-        UpdateReel(numSucceededButtons);
 	} // End of OnPressedButton().
-
-    public void MissedButton() {
-        Debug.Log(numSucceededButtons);
-        numSucceededButtons -= 1;
-        if (numSucceededButtons < 0) {
-            StopFishing();
-		}
-        UpdateReel(numSucceededButtons);
-	} // End of MissedButton().
 
     private void SpawnSegment() {
         int amount = baseAmtPerSegment * difficulty + Random.Range(-1, 1);
@@ -135,11 +132,13 @@ public class FishingController : MonoBehaviour
 
     private IEnumerator SpawnButtons(int num) {
         yield return new WaitForSeconds(timeBetweenButtons);
+
         for (int i = 0; i < num; i++) {
             SpawnRandomButton();
             yield return new WaitForSecondsRealtime(timeBetweenButtons);
 		}
         yield return new WaitForSecondsRealtime(timeBetweenSegments / difficulty);
+
         SpawnSegment();
 	} // End of SpawnButtons().
 
@@ -157,14 +156,13 @@ public class FishingController : MonoBehaviour
         buttonImg.color = Color.white;
 
         FishingButton fButton = button.GetComponent<FishingButton>();
-        fButton.Init(buttonVals.direction, difficulty);
+        fButton.Init(buttonVals.direction);
         fButton.onFishButtonPressed += OnPressedButton;
 
-        fishingOrder.Enqueue(fButton);
-        if (fishingOrder.Count == 1) {
+        Inst.fishingOrder.Enqueue(fButton);
+        if (Inst.fishingOrder.Count == 1) {
             fButton.isActiveButton = true;
 		}
-	    
     } // End of SpawnRandomButton().
 
     private Vector3 PickSpawnPosition() {
@@ -188,19 +186,20 @@ public class FishingController : MonoBehaviour
 
     private FishingButtonStruct PickButtonDirection() {
         int buttonVal = Random.Range(1, 5);
+
         Sprite img = null;
         switch (buttonVal) {
             case 1:
-                img = upArrow;
+                img = ResourceLibrary.UpSprite;
                 break;
             case 2:
-                img = downArrow;
+                img = ResourceLibrary.DownSprite;
                 break;
             case 3:
-                img = leftArrow;
+                img = ResourceLibrary.LeftSprite;
                 break;
             case 4:
-                img = rightArrow;
+                img = ResourceLibrary.RightSprite;
                 break;
         }
         return new FishingButtonStruct(GetButtonDir(buttonVal), img);

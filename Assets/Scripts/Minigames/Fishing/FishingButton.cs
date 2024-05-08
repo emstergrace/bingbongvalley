@@ -13,8 +13,10 @@ public class FishingButton : MonoBehaviour
 
 	private Vector2 requiredDirection = Vector2.zero;
 	private RectTransform lineRect;
+	private RectTransform canvasRect;
 	private bool passedLine = false;
 	[SerializeField] private float moveSpeed = 7f;
+	private float actualSpeed = 7f;
 
 	public delegate void OnFishButtonPressed(bool isCorrect);
 	public OnFishButtonPressed onFishButtonPressed;
@@ -23,26 +25,27 @@ public class FishingButton : MonoBehaviour
 	private bool succeeded = false;
 	private bool isOverlapping = false;
 
-   public void Init(Vector2 reqInput, float speed) {
+   public void Init(Vector2 reqInput) {
 
 		lineRect = FishingController.Inst.FishingLine.GetComponent<RectTransform>();
+		canvasRect = FishingController.Inst.canvasRect;
 		requiredDirection = reqInput;
-		//moveSpeed = speed;
+		actualSpeed = moveSpeed;
 
 		GameInputManager.GameplayMap.FindAction("Move").started += HandleInput;
 		onFishButtonPressed += IsPressedCorrectly;
 	} // End of Init().
 
 	private void Update() {
-		if (buttonRect.position.x < 100f && isActiveButton && !succeeded) { // We missed the button input
+		if (!buttonRect.rect.Overlaps(canvasRect.rect) && isActiveButton && !succeeded) { // We missed the button input
 			isActiveButton = false;
-			onFishButtonPressed?.Invoke(false);
-			FishingController.Inst.MissedButton();
+			onFishButtonPressed?.Invoke(false); // Notify controller we missed button
 			return;
 		}
 
-		transform.position = transform.position + Vector3.left * moveSpeed * Time.deltaTime * Screen.width;
+		transform.position = transform.position + Vector3.left * actualSpeed * Time.deltaTime * Screen.width;
 	} // End of Update().
+
 
 	private void HandleInput(InputAction.CallbackContext action) {
 		if (!isActiveButton) return;
@@ -93,6 +96,7 @@ public class FishingButton : MonoBehaviour
 
 		GameInputManager.GameplayMap.FindAction("Move").started -= HandleInput;
 		onFishButtonPressed -= FishingController.Inst.OnPressedButton;
+		actualSpeed = 0f;
 
 		StopAllCoroutines();
 		succeeded = false;
@@ -116,6 +120,19 @@ public class FishingButton : MonoBehaviour
 	private void OnTriggerExit2D(Collider2D collision) {
 		if (collision.gameObject == FishingController.Inst.FishingLine) {
 			isOverlapping = false;
+
+			if (isActiveButton && !succeeded) { // We missed the button input
+				isActiveButton = false;
+				onFishButtonPressed?.Invoke(false); // Notify controller we missed button
+				if (gameObject.activeSelf)
+					StartCoroutine(MissedButtonCorout());
+			}
 		}
-	}
+	} // End of OnTriggerExit2D().
+
+	private IEnumerator MissedButtonCorout() {
+		yield return new WaitForSeconds(1f);
+		Disable();
+	} // End of MissedButtonCorout().
+
 }

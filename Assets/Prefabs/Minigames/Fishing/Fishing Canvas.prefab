@@ -34,8 +34,8 @@ RectTransform:
   - {fileID: 111044630837582827}
   m_Father: {fileID: 4656844147300198519}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
-  m_AnchorMin: {x: 0.1, y: 0.95}
-  m_AnchorMax: {x: 0.5, y: 0.95}
+  m_AnchorMin: {x: 0.13, y: 0.95}
+  m_AnchorMax: {x: 0.53, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -269,6 +269,7 @@ RectTransform:
   - {fileID: 3766080908571951583}
   - {fileID: 7834151924640871749}
   - {fileID: 8361334645782407011}
+  - {fileID: 4324635678035118824}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -525,8 +526,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0}
   m_AnchorMax: {x: 0.1, y: 0.9}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 20, y: -20}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1037367206204146360
 CanvasRenderer:
@@ -549,7 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6981132, g: 0, b: 0, a: 0.64705884}
+  m_Color: {r: 0, g: 0.6132076, b: 0.0068010814, a: 0.8666667}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -638,6 +639,81 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 18.241669, y: 1037.9039}
   m_EdgeRadius: 0
+--- !u!1 &5157794650872680707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4324635678035118824}
+  - component: {fileID: 1902257244323320740}
+  - component: {fileID: 783166330922242777}
+  m_Layer: 5
+  m_Name: Fishing Rod Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4324635678035118824
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157794650872680707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4656844147300198519}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.906}
+  m_AnchorMax: {x: 0.11, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1902257244323320740
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157794650872680707}
+  m_CullTransparentMesh: 1
+--- !u!114 &783166330922242777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157794650872680707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 19c31595744cc394ab43b7d2383c8d31, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 1
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5223121797125247725
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,11 +869,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800a1360a3fa57b44b8284f0932a1d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 4180077046223981211, guid: ec6d5114a1337bd44a8e63c1d67a9263, type: 3}
   fishingContainer: {fileID: 8576423314182078338}
   fishingCanvas: {fileID: 3439652928121628426}
   fishingLine: {fileID: 4990225556028894386}
   reelLine: {fileID: 7072976629825140452}
-  buttonPrefab: {fileID: 4180077046223981211, guid: ec6d5114a1337bd44a8e63c1d67a9263, type: 3}
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
   baseAmtPerSegment: 4
   baseNumRequiredButtons: 16
   timeBetweenButtons: 0.375
@@ -807,7 +885,6 @@ MonoBehaviour:
   spawnThree: {fileID: 8917637509502422691}
   spawnFour: {fileID: 2025826827061201330}
   spawnFive: {fileID: 9006774806398650051}
-  panel: {fileID: 0}
 --- !u!1 &6041951104369853554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1132,7 @@ RectTransform:
   m_GameObject: {fileID: 8928553133446256769}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.42, y: 2.42, z: 2.42}
+  m_LocalScale: {x: 6.29, y: 6.29, z: 6.29}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 111044630837582827}
@@ -1093,7 +1170,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7896b35e28741c4b961b27df0269b6f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9787a4069b5ee6b4f9c9d156d90fd7e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

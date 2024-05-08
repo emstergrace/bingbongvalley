@@ -20,9 +20,6 @@ public class GameManager : MonoBehaviour
     [Header("")]
     [SerializeField] private Menu pauseMenu = null;
 
-    [Header("Test Objects")]
-    public GameObject panel;
-
     private bool gamePaused = false; public static bool IsGamePaused { get { return Inst.gamePaused; } }
     private Stack<Menu> activeMenuUI = new Stack<Menu>(); public static Stack<Menu> ActiveMenuUI { get { return Inst.activeMenuUI; } }
 
@@ -51,11 +48,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public IEnumerator FishPanel() {
-        panel.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        panel.SetActive(false);
-    }
 
     private void Update() {
 

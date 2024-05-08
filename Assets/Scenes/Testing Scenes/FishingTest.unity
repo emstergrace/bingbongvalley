@@ -578,7 +578,6 @@ MonoBehaviour:
   questLibrary: {fileID: 0}
   locationManager: {fileID: 0}
   pauseMenu: {fileID: 0}
-  panel: {fileID: 0}
 --- !u!4 &1592692599
 Transform:
   m_ObjectHideFlags: 0
@@ -621,11 +620,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 800a1360a3fa57b44b8284f0932a1d5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 4180077046223981211, guid: ec6d5114a1337bd44a8e63c1d67a9263, type: 3}
   fishingContainer: {fileID: 727199918}
   fishingCanvas: {fileID: 1755870446}
   fishingLine: {fileID: 901237656}
   reelLine: {fileID: 1861929032}
-  buttonPrefab: {fileID: 4180077046223981211, guid: ec6d5114a1337bd44a8e63c1d67a9263, type: 3}
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
   baseAmtPerSegment: 4
   baseNumRequiredButtons: 16
   timeBetweenButtons: 0.6
