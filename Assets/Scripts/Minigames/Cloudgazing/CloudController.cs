@@ -105,7 +105,7 @@ public class CloudController : MonoBehaviour
         yield return null;
         float randomVal = Random.Range(0.8f, 1.1f);
         while (cloud.transform.position.x > tf.rect.width * -1 * tf.localScale.x) {
-            cloud.transform.localPosition = cloud.transform.localPosition + Vector3.left * Time.deltaTime * Screen.width/(moveScale * randomVal * 3f/layer);
+            cloud.transform.localPosition = cloud.transform.localPosition + Vector3.left * Time.deltaTime * Screen.width/(moveScale * randomVal * 3f/(layer+1));
             yield return null;
 		}
         numCloudsinLayer[layer]--;
