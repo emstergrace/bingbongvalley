@@ -10,11 +10,14 @@ public class QuestUI : MonoBehaviour
     [SerializeField] private Transform objectiveContainer;
 	private Dictionary<Objective, TextMeshProUGUI> objectiveTextDict = new Dictionary<Objective, TextMeshProUGUI>();
 
+	public Quest quest { get; private set; }
+
 	private void Start() {
 	}
 
 	public void Initialize(Quest q) {
 		questName.text = q.Name;
+		quest = q;
 
 		foreach(Objective obj in q.objectives) {
 			GameObject objUI = Instantiate(objectiveUIPrefab, objectiveContainer);

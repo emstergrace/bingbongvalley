@@ -12,7 +12,7 @@ public class QuestManager : MonoBehaviour
     
     public static QuestSOContainer QuestListContainer { get; private set; }
 
-    public List<Quest> Quests = new List<Quest>();
+    public List<Quest> Quests { get; private set; } = new List<Quest>();
     private Dictionary<int, Quest> QuestDictionary = new Dictionary<int, Quest>();
     private int numActiveQuests = 0;
 
