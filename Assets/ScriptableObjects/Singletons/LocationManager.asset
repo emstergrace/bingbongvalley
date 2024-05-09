@@ -33,3 +33,15 @@ MonoBehaviour:
     locationScene:
       sceneAsset: {fileID: 102900000, guid: 43028affdc4556f4c8ee51fc68ca7438, type: 3}
       scenePath: Assets/Scenes/Testing Scenes/FishingTest.unity
+  - locationName: Home
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 0d9c76daa1afb4442a1f1377cc9349ec, type: 3}
+      scenePath: Assets/Scenes/BingBongHome.unity
+  - locationName: Greenhouse
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: b0218485f795ba44cb95f4f3d440f996, type: 3}
+      scenePath: Assets/Scenes/Greenhouse.unity
+  - locationName: City
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 4335202e0f463314f9a62244e63122b6, type: 3}
+      scenePath: Assets/Scenes/City.unity
