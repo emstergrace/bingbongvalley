@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private LocationManager locationManager = null;
     [Header("")]
     [SerializeField] private Menu pauseMenu = null;
+    [SerializeField] private GameObject loadingScreen = null;
 
     private bool gamePaused = false; public static bool IsGamePaused { get { return Inst.gamePaused; } }
     private Stack<Menu> activeMenuUI = new Stack<Menu>(); public static Stack<Menu> ActiveMenuUI { get { return Inst.activeMenuUI; } }
@@ -27,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     public static bool isFishingActive = false;
     public static bool isCloudActive = false;
+
+    public static bool startedGame = false;
 
     private void Awake() {
         if (Inst == null)
@@ -50,23 +53,34 @@ public class GameManager : MonoBehaviour
 
 
     private void Update() {
-
-        if (TopmostMenu != null) {
-            if (GameInputManager.CancelAction.triggered) {
-                TopmostMenu.PopMenu();
-            }
-        }
-        else {
-            if (GameInputManager.CancelAction.triggered) {
-                PushMenuUI(pauseMenu);
-                GameInputManager.GameplayMap.Disable();
-            }
-        }
-
-        if (GameInputManager.TestAction.WasPressedThisFrame()) {
-            BayatGames.SaveGameFree.SaveGame.Clear();
+		// Menu Handling
+		if (GameInputManager.CancelAction.triggered) {
+			if (TopmostMenu != null) {
+				TopmostMenu.PopMenu();
+			}
+			else {
+				if (startedGame) {
+					PushMenuUI(pauseMenu);
+				}
+			}
 		}
-        
+
+		// Backpack
+		if (GameInputManager.BackpackKey.triggered) {
+            if (startedGame) {
+				if (InventoryPlaceholder.Inst == null) {
+					Instantiate(ResourceLibrary.InventoryCanvas);
+
+				}
+				if (TopmostMenu == InventoryPlaceholder.Inst) {
+					PopMenuUI();
+				}
+				else {
+					PushMenuUI(InventoryPlaceholder.Inst);
+				}
+			}
+		}
+
 	} // End of Update().
 
 	public static bool PauseGame(bool val) {
@@ -81,6 +95,10 @@ public class GameManager : MonoBehaviour
 
         return val;
 	} // End of PauseGame().
+
+    public static void PushPauseMenu() {
+        PushMenuUI(Inst.pauseMenu);
+	} // End of PushPauseMenu().
 
     public static bool AllowPlayerInput() {
 
@@ -105,23 +123,35 @@ public class GameManager : MonoBehaviour
     public IEnumerator LoadSceneCorout(string name, Vector3 position) {
 
         AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(LocationManager.GetScene(name), LoadSceneMode.Single);
-        PlayerController.Inst.gameObject.SetActive(false);
+
+        loadingScreen.SetActive(true);
+
+        if (PlayerController.Inst != null)
+            PlayerController.Inst.gameObject.SetActive(false);
+
         while (!asyncLoadLevel.isDone) {
             yield return null;
         }
 
-        QuestManager.Inst.LoadAllQuests();
+        //QuestManager.Inst.LoadAllQuests();
+        if (PlayerController.Inst != null) {
+            PlayerController.Inst.Teleport(position);
+            PlayerController.Inst.gameObject.SetActive(true);
+        }
 
-        PlayerController.Inst.Teleport(position);
-        PlayerController.Inst.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        loadingScreen.SetActive(false);
     } // End of LoadScene().
 
     #region active menu methods
     public static void PushMenuUI(Menu menu) {
         if (menu == null) return;
+        if (ActiveMenuUI.Contains(menu)) return;
 
         if (TopmostMenu != null)
             TopmostMenu.gameObject.SetActive(false);
+
+        GameInputManager.GameplayMap.Disable();
 
         menu.gameObject.SetActive(true);
         menu.OnEnter();

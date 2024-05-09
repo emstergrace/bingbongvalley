@@ -44,7 +44,7 @@ public class SaveManager : MonoBehaviour {
 
     public static void Load()
     {
-
+        LoadQuests();
         // technically load here whever they're supposed to load
         // Then after the scene is loaded everything should instantiate itself
     }

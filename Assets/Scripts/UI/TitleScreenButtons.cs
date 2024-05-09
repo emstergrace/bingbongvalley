@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleScreenButtons : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class TitleScreenButtons : MonoBehaviour
 
     public GameObject loadButton;
 
-	private void Start() {
+	private void Awake() {
 		// If there is a save, show the load game button
         if (SaveManager.SaveExists()) {
             loadButton.SetActive(true);
@@ -21,15 +22,19 @@ public class TitleScreenButtons : MonoBehaviour
 
 	public void StartGame() {
         SaveManager.ResetSaves();
-        GameManager.LoadScene(startSceneName, startPos);
+        //GameManager.LoadScene(startSceneName, startPos);
+        SceneManager.LoadScene(LocationManager.GetScene(startSceneName));
         // Need warning here for starting a new game - or maybe just change the text?? to say restart game?? idk
         BayatGames.SaveGameFree.SaveGame.Save<bool>("existing save", true);
+
+        GameManager.startedGame = true;
     } // End of StartGame().
 
     public void LoadGame() {
         SaveManager.Load();
         // we should be having savemanager tp them wherever it needs to but for now
         GameManager.LoadScene(startSceneName, startPos);
+        GameManager.startedGame = true;
     } // End of LoadGame().
 
     public void QuitGame() {
