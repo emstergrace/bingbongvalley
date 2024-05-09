@@ -17,7 +17,7 @@ public class GameInputManager : MonoBehaviour
     // Input Actions
     private InputAction cancelAction; public static InputAction CancelAction { get { return Inst.cancelAction; } }
     private InputAction interactAction; public static InputAction InteractAction { get { return Inst.interactAction; } }
-    private InputAction testAction; public static InputAction TestAction { get { return Inst.testAction; } }
+    private InputAction backpackKey; public static InputAction BackpackKey { get { return Inst.backpackKey; } }
 
 	private void Awake() {
         Inst = this;
@@ -37,9 +37,7 @@ public class GameInputManager : MonoBehaviour
     public void RefreshActions() {
         cancelAction = UIMap.FindAction("Cancel");
         interactAction = gameplayMap.FindAction("Interact");
-        testAction = gameplayMap.FindAction("TestKey");
-        
-        //UpAction = GameplayMap.FindAction("Move").bindings[0];
+        backpackKey = UIMap.FindAction("Backpack");
 
     } // End of RefreshActions().
 }

@@ -5,10 +5,8 @@ using UnityEngine;
 public class PauseMenu : Menu
 {
 	public override void OnEnter() {
-		GameManager.PauseGame(true);
 	}
 
 	public override void OnExit() {
-		GameManager.PauseGame(false);
 	}
 }

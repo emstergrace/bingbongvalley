@@ -20,11 +20,15 @@ public class ResourceLibrary : SingletonScriptableObject<ResourceLibrary>
 	[SerializeField] private List<CloudLayers> cloudSprites; 
 	private Dictionary<int, List<Sprite>> cloudSpriteDict; public static Dictionary<int, List<Sprite>> CloudSprites { get { return Inst.cloudSpriteDict; } }
 
+	[Header("UI")]
+	[SerializeField] private GameObject inventoryCanvas; public static GameObject InventoryCanvas { get { return Inst.inventoryCanvas; } }
+
 	[Header("Layers")]
 	[SerializeField] private LayerMask playerMask; public static LayerMask PlayerMask { get { return Inst.playerMask; } }
 	[SerializeField] private LayerMask enemyMask; public static LayerMask EnemyMask { get { return Inst.enemyMask; } }
 	[SerializeField] private LayerMask attackMask; public static LayerMask AttackMask { get { return Inst.attackMask; } }
 	[SerializeField] private LayerMask characterBlockerMask; public static LayerMask CharacterBlockerMask { get { return Inst.characterBlockerMask; } }
+
 
 	[Header("Miscellaneous")]
 	private string settingsFileLoc; public static string SettingsFileLoc { get { return Inst.settingsFileLoc; } }

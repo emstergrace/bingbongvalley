@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryPlaceholder : MonoBehaviour
+public class InventoryPlaceholder : Menu
 {
     public GameObject InventoryPanel;
     public GameObject BackpackPanel;
@@ -12,7 +12,18 @@ public class InventoryPlaceholder : MonoBehaviour
     public GameObject FishPanel;
     public GameObject MapPanel;
 
-    public void OpenWardrobe() {
+    public static InventoryPlaceholder Inst { get; private set; }
+
+    private void Awake() {
+        if (Inst != null) {
+            Destroy(this.gameObject);
+		}
+        else {
+            Inst = this;
+		}
+	}
+
+	public void OpenWardrobe() {
         PotionsPanel.SetActive(false);
         FishPanel.SetActive(false);
         IngredientsPanel.SetActive(false);
@@ -73,5 +84,9 @@ public class InventoryPlaceholder : MonoBehaviour
 
     public void CloseInventory() {
         InventoryPanel.SetActive(false);
+	}
+
+    public void OptionsButton() {
+        GameManager.PushPauseMenu();
 	}
 }
