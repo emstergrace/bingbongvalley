@@ -3160,7 +3160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Home
-  teleportPosition: {x: 5, y: -5.5, z: 0}
+  teleportPosition: {x: -5, y: -5.5, z: 0}
   directionAfterTeleport: 0
 --- !u!212 &1319615281
 SpriteRenderer:
