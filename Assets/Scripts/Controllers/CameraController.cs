@@ -22,6 +22,10 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
+        if (target == null) {
+            SetTarget(PlayerController.Inst.transform);
+		}
+
         offsetZ = Vector3.forward * (transform.position - target.position).z;
         transform.position = new Vector3(target.position.x, target.position.y, offsetZ.z);
         lastTargetPosition = target.position;
