@@ -28,7 +28,6 @@ public class QuestManager : MonoBehaviour
     {
         QuestListContainer = QuestSOContainer.Inst;
 
-        Debug.LogWarning("Loading quest progress on game start");
         //QuestListContainer.LoadQuestProgress();// Use this line to load quest progress
 
         EventManager.StartListening(Objective.StringNotifier, OnObjectiveTriggered);
