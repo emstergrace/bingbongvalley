@@ -88,6 +88,7 @@ public class Objective
     public static string TravelNotifier = "visited ";
     public static string BountyNotifier = "killed ";
     public static string ItemNotifier = "picked up ";
+    public static string PotionNotifier = "made potion ";
     public static string DeliveryNotifier = "delivered ";
     public static string TalkNotifier = "talked to ";
 
@@ -103,6 +104,8 @@ public class Objective
                 return DeliveryNotifier;
             case ObjectiveType.Talk:
                 return TalkNotifier;
+            case ObjectiveType.Potion:
+                return PotionNotifier;
             default:
                 return "";
 		}
@@ -116,6 +119,7 @@ public enum ObjectiveType
     Travel, // Notifier is 'visited [place]'
     Bounty, // Notifier is 'killed [enemy name]'
     Item, // Notifier is 'picked up [item]'
+    Potion, // Notifier is 'made potion [item]'
     Delivery, // Notifier is 'delivered [item]'
     Talk, // Notifier is 'talked to [npc name]'
     Misc // Notifier is '[string notifier]'

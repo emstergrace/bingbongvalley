@@ -27,7 +27,7 @@ public class EnemyEntity : BaseEntity
     }
 
     public override void OnDeath() {
-        EventManager.TriggerEvent(Objective.StringNotifier, new Dictionary<string, object> { { Objective.BountyNotifier + entityName, 1 } });
+        EventManager.TriggerObjective(Objective.BountyNotifier + entityName, 1);
     } // End of OnDeath().
 
     private void OnDestroy() {

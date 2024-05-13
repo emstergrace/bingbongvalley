@@ -56,10 +56,26 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Usage: For Quests:: EventManager.TriggerObjective(Objective.[typeNotifier] + [relevant name], [relevant obj/num]);
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="message"></param>
     public static void TriggerEvent(string eventName, Dictionary<string, object> message) {
         Action<Dictionary<string, object>> thisEvent = null;
         if (Inst.eventDictionary.TryGetValue(eventName, out thisEvent)) {
             thisEvent.Invoke(message);
         }
     }
+
+    public static void TriggerEvent(string eventName, string message, object obj) {
+        Action<Dictionary<string, object>> thisEvent = null;
+        if (Inst.eventDictionary.TryGetValue(eventName, out thisEvent)) {
+            thisEvent.Invoke(new Dictionary<string, object> { { message, obj } });
+        }
+    }
+
+    public static void TriggerObjective(string identifier, object val) {
+        TriggerEvent(Objective.StringNotifier, identifier, val);
+	}
 }
