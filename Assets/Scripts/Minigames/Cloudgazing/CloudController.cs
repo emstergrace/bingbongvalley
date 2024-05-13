@@ -91,7 +91,7 @@ public class CloudController : MonoBehaviour
 	} // End of PickCloudSprite().
 
     private void SpawnCloud(int layer) {
-        GameObject cloud = LeanPool.Spawn(ResourceLibrary.CloudPrefab, new Vector3(spawnXTransform.localPosition.x, Random.Range(Screen.height * 0.1f, Screen.height * 0.9f), 0f), Quaternion.identity, cloudContainer);
+        GameObject cloud = LeanPool.Spawn(ResourceLibrary.CloudPrefab, new Vector3(spawnXTransform.position.x, Random.Range(Screen.height * 0.1f, Screen.height * 0.9f), 0f), Quaternion.identity, cloudContainer);
         cloud.transform.localScale = new Vector3(Random.Range(minCloudScale, maxCloudScale), Random.Range(minCloudScale, maxCloudScale), 1f) / (3.0f/(layer+1));
         cloud.GetComponent<Image>().sprite = PickCloudSprite(layer);
         cloud.GetComponent<Canvas>().sortingOrder = layer;
@@ -104,7 +104,7 @@ public class CloudController : MonoBehaviour
         RectTransform tf = cloud.GetComponent<RectTransform>();
         yield return null;
         float randomVal = Random.Range(0.8f, 1.1f);
-        while (cloud.transform.position.x > tf.rect.width * -1 * tf.localScale.x) {
+        while (tf.anchoredPosition.x + tf.sizeDelta.x * tf.localScale.x > 0f) {
             cloud.transform.localPosition = cloud.transform.localPosition + Vector3.left * Time.deltaTime * Screen.width/(moveScale * randomVal * 3f/(layer+1));
             yield return null;
 		}

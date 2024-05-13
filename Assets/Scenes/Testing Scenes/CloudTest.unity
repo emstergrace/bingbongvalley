@@ -376,6 +376,7 @@ GameObject:
   - component: {fileID: 506552064}
   - component: {fileID: 506552063}
   - component: {fileID: 506552066}
+  - component: {fileID: 506552067}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -512,6 +513,29 @@ MonoBehaviour:
   sceneName: City
   teleportPosition: {x: 7, y: -3.5, z: 0}
   directionAfterTeleport: 0
+--- !u!223 &506552067
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506552060}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 20
+  m_TargetDisplay: 0
 --- !u!1 &845546035
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +606,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 49726739}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -637,9 +661,9 @@ MonoBehaviour:
   maxCloudScale: 1.2
   moveScale: 28
   timeBetweenCloudSegments: 14
-  maxCloudPerLayer: 8
-  maxCloudPerSegment: 6
-  minCloudPerSegment: 2
+  maxCloudPerLayer: 6
+  maxCloudPerSegment: 3
+  minCloudPerSegment: 1
 --- !u!1 &1383060458
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,11 +694,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 845546039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1052, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 14.840027, y: 0}
+  m_SizeDelta: {x: 99, y: 100}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &1403315536
 GameObject:
   m_ObjectHideFlags: 0
