@@ -45,3 +45,7 @@ MonoBehaviour:
     locationScene:
       sceneAsset: {fileID: 102900000, guid: 4335202e0f463314f9a62244e63122b6, type: 3}
       scenePath: Assets/Scenes/City.unity
+  - locationName: Forest
+    locationScene:
+      sceneAsset: {fileID: 102900000, guid: 4901473478dda4e4388de7a40cabb395, type: 3}
+      scenePath: Assets/Scenes/Forest.unity
