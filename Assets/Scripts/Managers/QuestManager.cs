@@ -39,6 +39,16 @@ public class QuestManager : MonoBehaviour
 		}
 	} // End of SaveQuests().
 
+    public void RemoveAllQuests() {
+        for (int i = 0; i < QuestSOContainer.QuestList.Count; i++) {
+            if (SaveGame.Exists("quest_" + QuestSOContainer.QuestList[i].ID)) {
+                SaveGame.Delete("quest_" + QuestSOContainer.QuestList[i].ID);
+            }
+        }
+        Quests.Clear();
+        QuestDictionary.Clear();
+	} // End of RemoveAllQuests().
+
 	public void LoadQuest(int questID) {
         ActivateQuest(questID);
         QuestDictionary[questID].LoadQuest();

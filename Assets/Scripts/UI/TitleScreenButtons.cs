@@ -29,7 +29,8 @@ public class TitleScreenButtons : MonoBehaviour
 
     private IEnumerator StartGameCorout() {
         yield return null;
-        BayatGames.SaveGameFree.SaveGame.DeleteAll();
+        //BayatGames.SaveGameFree.SaveGame.Clear();
+        QuestManager.Inst.RemoveAllQuests();
         yield return null;
         BayatGames.SaveGameFree.SaveGame.Save<bool>("existing save", true);
 
