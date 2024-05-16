@@ -121,7 +121,10 @@ public class GameManager : MonoBehaviour
 	}
 
     public IEnumerator LoadSceneCorout(string name, Vector3 position) {
-
+        if (name == null) {
+            Debug.LogError("Scene " + name + " not found.");
+            yield break;
+		}
         AsyncOperation asyncLoadLevel = SceneManager.LoadSceneAsync(LocationManager.GetScene(name), LoadSceneMode.Single);
 
         loadingScreen.SetActive(true);
@@ -133,14 +136,15 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        //QuestManager.Inst.LoadAllQuests();
+        yield return new WaitForSeconds(0.5f);
+
         if (PlayerController.Inst != null) {
             PlayerController.Inst.Teleport(position);
             PlayerController.Inst.gameObject.SetActive(true);
         }
-
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f); // Wait for camera to catch up
         loadingScreen.SetActive(false);
+
     } // End of LoadScene().
 
     #region active menu methods

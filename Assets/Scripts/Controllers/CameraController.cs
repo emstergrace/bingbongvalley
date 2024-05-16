@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     public static Vector3 AimDirection = Vector3.zero;
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         if (target == null) {
             SetTarget(PlayerController.Inst.transform);
