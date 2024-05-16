@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: fishery kill square
   m_EditorClassIdentifier: 
   ID: -219040
-  _name: Fishery + Kill square
+  _name: Fishery + Kill square + flowers
   description: kill square
+  doesAutoComplete: 0
   isRepeatable: 0
   maxRepeatAmount: 0
   objectives:
@@ -29,4 +30,10 @@ MonoBehaviour:
     notifier: fish
     isRequired: 1
     requiredAmount: 1
+    currentAmount: 0
+  - type: 2
+    description: get flower {1}/{2}
+    notifier: Sweet Woodruff
+    isRequired: 1
+    requiredAmount: 3
     currentAmount: 0

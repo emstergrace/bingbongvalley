@@ -13,6 +13,7 @@ public class Quest
     private string _name; public string Name { get { return _name; } }
     private string description; public string Description { get { return description; } }
     public QuestStatus status = QuestStatus.Inactive;
+    public bool autoCompletes { get; private set; } = false;
     public bool isRepeatable { get; private set; } = false;
     public int maxRepeatAmount { get; private set; } = -1;
     public int currentRepeatAmount { get; private set; } = 0;
@@ -25,10 +26,11 @@ public class Quest
     public delegate void ObjProgressChanged(float after, Objective task, Quest quest);
     public event ObjProgressChanged OnObjProgressChanged;
 
-    public Quest(int identifier, string n, string d, bool repeatable, int maxRepeats, List<Objective> objs) {
+    public Quest(int identifier, string n, string d, bool selfCompl, bool repeatable, int maxRepeats, List<Objective> objs) {
         ID = identifier;
         _name = n;
         description = d;
+        autoCompletes = selfCompl;
         isRepeatable = repeatable;
         maxRepeatAmount = maxRepeats;
         foreach(Objective o in objs) {
@@ -38,7 +40,7 @@ public class Quest
 
     public static Quest CreateFromData(QuestData data) {
         if (data == null) return null;
-        return new Quest(data.ID, data.Name, data.Description, data.isRepeatable, data.maxRepeatAmount, data.objectives);
+        return new Quest(data.ID, data.Name, data.Description, data.doesAutoComplete, data.isRepeatable, data.maxRepeatAmount, data.objectives);
 	} // End of CreateFromData().
 
     public void SetQuestStatus(QuestStatus newStatus) {
@@ -105,7 +107,12 @@ public class Quest
             }
         }
         if (allCompleted) {
-            SetQuestStatus(QuestStatus.Completed);
+            if (autoCompletes) {
+                SetQuestStatus(QuestStatus.Completed);
+            }
+            else {
+                SetQuestStatus(QuestStatus.FinishedUncompleted);
+			}
         }
     } // End of NotifyTaskStatusChanged().
 

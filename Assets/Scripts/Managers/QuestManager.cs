@@ -92,6 +92,13 @@ public class QuestManager : MonoBehaviour
             return null;
 	} // End of RetrieveQuest().
 
+    public bool SetQuestStatus(int ID, QuestStatus status) {
+        if (RetrieveQuest(ID) == null) return false;
+
+        RetrieveQuest(ID).SetQuestStatus(status);
+        return true;
+	} // End of SetQuestStatus().
+
     public QuestStatus GetQuestStatus(int ID) {
         if (RetrieveQuest(ID) == null) {
             return QuestStatus.Inactive;

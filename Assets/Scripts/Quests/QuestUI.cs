@@ -40,7 +40,6 @@ public class QuestUI : MonoBehaviour
     private void UpdateObjective(int val, Objective obj) {
 		TextMeshProUGUI text = objectiveTextDict[obj];
 		text.text = obj.Description;
-		Debug.Log("Updated objective");
 		if (obj.Completed) {
 			text.color = Color.green;
 		}

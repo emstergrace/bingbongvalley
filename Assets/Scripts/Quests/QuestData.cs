@@ -15,6 +15,7 @@ public class QuestData : ScriptableObject
 
     [SerializeField]private string _name; public string Name { get { return _name; } }
     [SerializeField] [Multiline] private string description; public string Description { get { return description; } }
+    [Tooltip("Complete the quest as soon as all objectives are passed instead of talking to something/going somewhere to finish")]public bool doesAutoComplete = false;
     public bool isRepeatable = false;
     [ConditionalHide("isRepeatable")]public int maxRepeatAmount = 0;
 

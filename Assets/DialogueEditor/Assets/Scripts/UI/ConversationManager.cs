@@ -863,6 +863,11 @@ namespace DialogueEditor
                     bool val = (node.ParamActions[i] as SetBoolParamAction).Value;
                     SetBool(name, val);
                 }
+                else if (node.ParamActions[i].ParamActionType == SetParamAction.eParamActionType.Quest) {
+                    QuestStatus val = (node.ParamActions[i] as SetQuestParamAction).Status;
+                    QuestManager.Inst.SetQuestStatus(System.Int32.Parse(name), val);
+
+				}
             }
         }
 

@@ -619,7 +619,7 @@ namespace DialogueEditor
                     CurrentAsset.ParameterList.Add(new EditableIntParameter(newname));
                 }
                 if (GUILayout.Button("Add quest")) {
-                    string newname = GetValidParamName("New quest");
+                    string newname = GetValidParamName("ID #");
                     CurrentAsset.ParameterList.Add(new EditableQuestParameter(newname));
 				}
                 GUILayout.EndHorizontal();
@@ -627,6 +627,9 @@ namespace DialogueEditor
                 for (int i = 0; i < CurrentAsset.ParameterList.Count; i++)
                 {
                     GUILayout.BeginHorizontal();
+                    if (CurrentAsset.ParameterList[i] is EditableQuestParameter) {
+                        GUILayout.Label("Quest ID");
+					}
 
                     float paramNameWidth = panelWidth * 0.6f;
                     CurrentAsset.ParameterList[i].ParameterName = GUILayout.TextField(CurrentAsset.ParameterList[i].ParameterName, 
@@ -643,8 +646,9 @@ namespace DialogueEditor
                         param.IntValue = EditorGUILayout.IntField(param.IntValue);
                     }
                     else if (CurrentAsset.ParameterList[i] is EditableQuestParameter) {
+
                         EditableQuestParameter param = CurrentAsset.ParameterList[i] as EditableQuestParameter;
-                        param.QuestValue = (QuestStatus)EditorGUILayout.EnumPopup(param.QuestValue);
+                        //param.QuestValue = (QuestStatus)EditorGUILayout.EnumPopup(param.QuestValue);
 					}
 
                     if (GUILayout.Button("X"))
@@ -1041,6 +1045,10 @@ namespace DialogueEditor
                         EditableSetBoolParamAction boolAction = node.ParamActions[i] as EditableSetBoolParamAction;
                         boolAction.Value = EditorGUILayout.Toggle(boolAction.Value);
                     }
+                    else if (node.ParamActions[i].ParamActionType == EditableSetParamAction.eParamActionType.Quest) {
+                        EditableSetQuestParamAction questAction = node.ParamActions[i] as EditableSetQuestParamAction;
+                        questAction.Status = (QuestStatus)EditorGUILayout.EnumPopup(questAction.Status);
+					}
 
                     if (GUILayout.Button("X"))
                     {

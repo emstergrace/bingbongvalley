@@ -12,6 +12,7 @@ namespace DialogueEditor
     [KnownType(typeof(EditableOptionConnection))]
     [KnownType(typeof(EditableSetIntParamAction))]
     [KnownType(typeof(EditableSetBoolParamAction))]
+    [KnownType(typeof(EditableSetQuestParamAction))]
     public abstract class EditableConversationNode
     {
         public enum eNodeType
