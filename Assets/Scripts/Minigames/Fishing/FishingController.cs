@@ -112,7 +112,7 @@ public class FishingController : MonoBehaviour
             numSucceededButtons += 1;
             UpdateReel(numSucceededButtons);
             if (numSucceededButtons == numRequiredButtons) {
-                EventManager.TriggerEvent(Objective.StringNotifier, new Dictionary<string, object> { { "picked up fish", 1 } });
+                EventManager.TriggerObjective("picked up fish", 1);
                 StopFishing(true);
 			}
 		}
