@@ -8,6 +8,7 @@ namespace DialogueEditor
     [DataContract]
     [KnownType(typeof(EditableIntCondition))]
     [KnownType(typeof(EditableBoolCondition))]
+    [KnownType(typeof(EditableQuestCondition))]
     public abstract class EditableConnection
     {
         public enum eConnectiontype

@@ -296,6 +296,7 @@ namespace DialogueEditor
             System.IO.MemoryStream ms = new System.IO.MemoryStream();
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(EditableConversation));
+            
             ser.WriteObject(ms, conversation);
             byte[] jsonData = ms.ToArray();
             ms.Close();
@@ -378,6 +379,11 @@ namespace DialogueEditor
                     IntParameter intParam = new IntParameter(editableParam.ParameterName, editableParam.IntValue);
                     conversation.Parameters.Add(intParam);
                 }
+                else if (ec.Parameters[i].ParameterType == EditableParameter.eParamType.Quest) {
+                    EditableQuestParameter editableParam = ec.Parameters[i] as EditableQuestParameter;
+                    QuestParameter questParam = new QuestParameter(editableParam.ParameterName, editableParam.QuestValue);
+                    conversation.Parameters.Add(questParam);
+				}
             }
         }
 
@@ -446,6 +452,14 @@ namespace DialogueEditor
                     setBool.Value = setBoolEditable.Value;
                     node.ParamActions.Add(setBool);
                 }
+                else if (editable.ParamActions[i].ParamActionType == EditableSetParamAction.eParamActionType.Quest) {
+                    EditableSetQuestParamAction setQuestEditable = editable.ParamActions[i] as EditableSetQuestParamAction;
+
+                    SetQuestParamAction setQuest = new SetQuestParamAction();
+                    setQuest.ParameterName = setQuestEditable.ParameterName;
+                    setQuest.Status = setQuestEditable.Status;
+                    node.ParamActions.Add(setQuest);
+				}
             }
         }
 
@@ -559,6 +573,34 @@ namespace DialogueEditor
 
                     connection.Conditions.Add(ic);
                 }
+                else if (editableConditions[i].ConditionType == EditableCondition.eConditionType.QuestCondition) {
+                    EditableQuestCondition eqc = editableConditions[i] as EditableQuestCondition;
+
+                    QuestCondition qc = new QuestCondition();
+                    qc.ParameterName = eqc.ParameterName;
+                    /*
+                    switch (eqc.CheckType) {
+                        case EditableQuestCondition.eCheckType.Active:
+                            qc.CheckType = QuestCondition.eCheckType.Active;
+                            break;
+                        case EditableQuestCondition.eCheckType.Completed:
+                            qc.CheckType = QuestCondition.eCheckType.Completed;
+                            break;
+                        case EditableQuestCondition.eCheckType.Failed:
+                            qc.CheckType = QuestCondition.eCheckType.Failed;
+                            break;
+                        case EditableQuestCondition.eCheckType.FinishedUncompleted:
+                            qc.CheckType = QuestCondition.eCheckType.FinishedUncompleted;
+                            break;
+                        case EditableQuestCondition.eCheckType.Inactive:
+                            qc.CheckType = QuestCondition.eCheckType.Inactive;
+                            break;
+					}
+                    */
+                    qc.RequiredStatus = eqc.requiredStatus;
+
+                    connection.Conditions.Add(qc);
+				}
             }
         }
     }

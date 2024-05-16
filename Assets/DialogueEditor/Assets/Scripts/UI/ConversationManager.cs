@@ -825,6 +825,16 @@ namespace DialogueEditor
                             break;
                     }
                 }
+                // Quest condition
+                if (conditions[i].ConditionType == Condition.eConditionType.QuestCondition) {
+                    QuestCondition condition = conditions[i] as QuestCondition;
+
+                    string paramName = condition.ParameterName;
+                    QuestStatus requiredStatus = condition.RequiredStatus;
+                    QuestStatus currentStatus = QuestManager.Inst.GetQuestStatus(System.Int32.Parse(paramName));
+
+                    conditionMet = requiredStatus == currentStatus;
+				}
 
                 if (!conditionMet)
                 {

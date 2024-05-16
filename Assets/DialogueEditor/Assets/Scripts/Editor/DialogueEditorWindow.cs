@@ -618,6 +618,10 @@ namespace DialogueEditor
                     string newname = GetValidParamName("New int");
                     CurrentAsset.ParameterList.Add(new EditableIntParameter(newname));
                 }
+                if (GUILayout.Button("Add quest")) {
+                    string newname = GetValidParamName("New quest");
+                    CurrentAsset.ParameterList.Add(new EditableQuestParameter(newname));
+				}
                 GUILayout.EndHorizontal();
 
                 for (int i = 0; i < CurrentAsset.ParameterList.Count; i++)
@@ -638,6 +642,10 @@ namespace DialogueEditor
                         EditableIntParameter param = CurrentAsset.ParameterList[i] as EditableIntParameter;
                         param.IntValue = EditorGUILayout.IntField(param.IntValue);
                     }
+                    else if (CurrentAsset.ParameterList[i] is EditableQuestParameter) {
+                        EditableQuestParameter param = CurrentAsset.ParameterList[i] as EditableQuestParameter;
+                        param.QuestValue = (QuestStatus)EditorGUILayout.EnumPopup(param.QuestValue);
+					}
 
                     if (GUILayout.Button("X"))
                     {
@@ -879,6 +887,14 @@ namespace DialogueEditor
                                         connection.AddCondition(new EditableBoolCondition(boolParam.ParameterName));
                                     });
                                 }
+                                
+                                else if (this.CurrentAsset.ParameterList[i].ParameterType == EditableParameter.eParamType.Quest) {
+                                    EditableQuestParameter questParam = CurrentAsset.ParameterList[i] as EditableQuestParameter;
+                                    rightClickMenu.AddItem(new GUIContent(questParam.ParameterName), false, delegate {
+                                        connection.AddCondition(new EditableQuestCondition(questParam.ParameterName));
+                                    });
+								}
+                                
                             }
 
                             rightClickMenu.ShowAsContext();
@@ -912,6 +928,11 @@ namespace DialogueEditor
                             boolCond.CheckType = (EditableBoolCondition.eCheckType)EditorGUILayout.EnumPopup(boolCond.CheckType);
                             boolCond.RequiredValue = EditorGUILayout.Toggle(boolCond.RequiredValue);
                         }
+                        else if (connection.Conditions[i].ConditionType == EditableCondition.eConditionType.QuestCondition) {
+                            EditableQuestCondition questCond = connection.Conditions[i] as EditableQuestCondition;
+
+                            questCond.requiredStatus = (QuestStatus)EditorGUILayout.EnumPopup(questCond.requiredStatus);
+						}
 
                         if (GUILayout.Button("X"))
                         {
@@ -977,6 +998,12 @@ namespace DialogueEditor
                                     node.ParamActions.Add(new EditableSetBoolParamAction(boolParam.ParameterName));
                                 });
                             }
+                            else if (this.CurrentAsset.ParameterList[i].ParameterType == EditableParameter.eParamType.Quest) {
+                                EditableQuestParameter questParam = CurrentAsset.ParameterList[i] as EditableQuestParameter;
+                                rightClickMenu.AddItem(new GUIContent(questParam.ParameterName), false, delegate {
+                                    node.ParamActions.Add(new EditableSetQuestParamAction(questParam.ParameterName));
+                                });
+							}
                         }
 
                         rightClickMenu.ShowAsContext();

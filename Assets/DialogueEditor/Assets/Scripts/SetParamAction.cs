@@ -9,7 +9,8 @@ namespace DialogueEditor
         public enum eParamActionType
         {
             Int,
-            Bool
+            Bool,
+            Quest
         }
 
         public abstract eParamActionType ParamActionType { get; }
@@ -29,5 +30,12 @@ namespace DialogueEditor
         public override eParamActionType ParamActionType { get { return eParamActionType.Bool; } }
 
         public bool Value;
+    }
+
+    public class SetQuestParamAction : SetParamAction
+    {
+        public override eParamActionType ParamActionType { get { return eParamActionType.Quest; } }
+
+        public QuestStatus Status;
     }
 }

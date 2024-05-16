@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using BayatGames.SaveGameFree;
+using System.Runtime.Serialization;
 
 // Just the container
 [CreateAssetMenu(fileName = "New Quest", menuName = "Game Data/Quest")]
@@ -47,11 +48,17 @@ public class QuestSaveData{
     public Dictionary<int, int> objectiveProgress = new Dictionary<int, int>();
 }
 
+[DataContract]
 public enum QuestStatus
 {
+    [EnumMember]
     Inactive = 0,
+    [EnumMember]
     Active = 1,
+    [EnumMember]
     FinishedUncompleted = 2,
+    [EnumMember]
     Completed = 3,
+    [EnumMember]
     Failed = 4
 } // End of QuestStatus enum.

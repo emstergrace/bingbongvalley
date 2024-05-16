@@ -9,7 +9,8 @@ namespace DialogueEditor
         public enum eConditionType
         {
             IntCondition,
-            BoolCondition
+            BoolCondition,
+            QuestCondition
         }
 
         public EditableCondition(string name)
@@ -55,5 +56,27 @@ namespace DialogueEditor
 
         [DataMember] public eCheckType CheckType;
         [DataMember] public bool RequiredValue;
+    }
+
+    [DataContract]
+    public class EditableQuestCondition : EditableCondition
+    {
+        /*
+        public enum eCheckType
+        {
+            Inactive = 0,
+            Active = 1,
+            FinishedUncompleted = 2,
+            Completed = 3,
+            Failed = 4
+        }
+        */
+
+        public EditableQuestCondition(string name) : base(name) { }
+
+        public override eConditionType ConditionType { get { return eConditionType.QuestCondition; } }
+
+        //[DataMember] public eCheckType CheckType;
+        [DataMember] public QuestStatus requiredStatus;
     }
 }

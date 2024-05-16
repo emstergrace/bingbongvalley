@@ -8,6 +8,7 @@ namespace DialogueEditor
     [DataContract]
     [KnownType(typeof(EditableBoolParameter))]
     [KnownType(typeof(EditableIntParameter))]
+    [KnownType(typeof(EditableQuestParameter))]
     public class EditableConversation
     {
         public const int INVALID_UID = -1;

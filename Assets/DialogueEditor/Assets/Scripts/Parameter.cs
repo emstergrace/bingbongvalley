@@ -29,4 +29,13 @@
 
         public int IntValue;
     }
+
+    public class QuestParameter : Parameter
+	{
+        public QuestParameter(string name, QuestStatus defaultStatus) : base(name) {
+            Status = defaultStatus;
+		}
+
+        public QuestStatus Status;
+	}
 }

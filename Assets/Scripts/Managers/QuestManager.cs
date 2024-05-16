@@ -92,6 +92,15 @@ public class QuestManager : MonoBehaviour
             return null;
 	} // End of RetrieveQuest().
 
+    public QuestStatus GetQuestStatus(int ID) {
+        if (RetrieveQuest(ID) == null) {
+            return QuestStatus.Inactive;
+		}
+        else {
+            return RetrieveQuest(ID).status;
+		}
+	}
+
     private void TriggerObjectives(string trigger, int amt) {
         foreach(Quest quest in Quests) {
             if (quest.status == QuestStatus.Active)

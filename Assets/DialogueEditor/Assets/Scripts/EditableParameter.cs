@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System;
 
 namespace DialogueEditor
 {
@@ -11,7 +12,8 @@ namespace DialogueEditor
         public enum eParamType
         {
             Bool,
-            Int
+            Int,
+            Quest
         }
 
         public EditableParameter(string name)
@@ -42,5 +44,16 @@ namespace DialogueEditor
         public override eParamType ParameterType { get { return eParamType.Int; } }
 
         [DataMember] public int IntValue;
+    }
+
+    [DataContract]
+    [KnownType(typeof(QuestStatus))]
+    public class EditableQuestParameter : EditableParameter
+    {
+        public EditableQuestParameter(string name) : base(name) { }
+
+        public override eParamType ParameterType { get { return eParamType.Quest; } }
+
+        [DataMember]public QuestStatus QuestValue;
     }
 }
