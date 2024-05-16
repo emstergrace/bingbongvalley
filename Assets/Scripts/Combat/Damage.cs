@@ -21,28 +21,33 @@ public class Damage : MonoBehaviour
         ownerColliders = s;
 	} // End of SetShooter().
 
-	private void OnTriggerEnter2D(Collider2D collision) {
+
+	private void OnTriggerStay2D(Collider2D collision) {
         if (isUsed) return;
-		foreach(Collider2D col in ownerColliders) {
+        foreach (Collider2D col in ownerColliders) {
             if (col == collision) return;
-		}
+        }
 
         BodyPartHealth bph = collision.GetComponent<BodyPartHealth>();
         if (bph != null) {
             bph.TakeDamage(damageVal);
             isUsed = true;
-		}
+        }
         else {
             BaseHealthController bhc = collision.GetComponent<BaseHealthController>();
             if (bhc != null) {
                 bhc.TakeDamage(damageVal);
-			}
+            }
             isUsed = true;
-		}
+        }
 
         if (isProjectile) {
             Destroy(gameObject);
-		}
-	} // End of OnTriggerEnter2D().
+        }
+    }
+
+	private void OnDisable() {
+        isUsed = false;
+	}
 
 } // End of Damage().

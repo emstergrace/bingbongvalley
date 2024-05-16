@@ -8,9 +8,9 @@ public class EnemyEntity : BaseEntity
     public Action OnTakenDamage;
 
     protected override void Start() {
-        base.Start();
         EnemyManager.inst?.RegisterEnemy(this);
-        healthController.OnDeathCallback += OnDeath;
+        if (healthController != null)
+            healthController.OnDeathCallback += OnDeath;
     }
 
     protected virtual void FixedUpdate() {

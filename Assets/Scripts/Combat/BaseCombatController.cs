@@ -7,7 +7,7 @@ public class BaseCombatController : MonoBehaviour
     [SerializeField] protected Animator anim;
 
     protected float timeCounter = 0f;
-    protected float attackTimer = 1f;
+    [SerializeField]protected float attackTimer = 1f;
     protected bool triedAttack = false;
     protected Vector2 aimDirection = Vector2.zero;
     protected int consecutiveShots = 0;
