@@ -23,8 +23,12 @@ public class BlackboardManager : MonoBehaviour
         memory[key] = value;
     } // End of Remember(). 
 
-    public void LoadSavedMemory() {
+    public void SaveBlackboard() {
 
-	} // End of LoadSavedMemory().
+	}
+
+    public void LoadBlackboard() {
+
+	} // End of LoadBlackboard().
 
 } // End of BlackboardManager.

@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &296075712 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3990215373438970295, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &301628195
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,16 +251,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &727199918 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8576423314182078338, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &901237656 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4990225556028894386, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &981671880
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,11 +329,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &1107696202 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2025826827061201330, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1402586042
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +558,7 @@ MonoBehaviour:
   questLibrary: {fileID: 0}
   locationManager: {fileID: 0}
   pauseMenu: {fileID: 0}
+  loadingScreen: {fileID: 0}
 --- !u!4 &1592692599
 Transform:
   m_ObjectHideFlags: 0
@@ -593,89 +574,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &1705134049 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 9006774806398650051, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1716455378 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4774559413800698323, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1755870446 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1755870451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755870446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 800a1360a3fa57b44b8284f0932a1d5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonPrefab: {fileID: 4180077046223981211, guid: ec6d5114a1337bd44a8e63c1d67a9263, type: 3}
-  fishingContainer: {fileID: 727199918}
-  fishingCanvas: {fileID: 1755870446}
-  fishingLine: {fileID: 901237656}
-  reelLine: {fileID: 1861929032}
-  resultPanel: {fileID: 0}
-  resultText: {fileID: 0}
-  baseAmtPerSegment: 4
-  baseNumRequiredButtons: 16
-  timeBetweenButtons: 0.6
-  timeBetweenSegments: 2.5
-  spawnOne: {fileID: 296075712}
-  spawnTwo: {fileID: 1716455378}
-  spawnThree: {fileID: 2047234744}
-  spawnFour: {fileID: 1107696202}
-  spawnFive: {fileID: 1705134049}
---- !u!114 &1755870456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755870446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05563db2ff554f84588cf1a2a249df9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1755870457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1755870446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6105c2bf6fef4ad43b93d9cf38f1e221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1861929032 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7072976629825140452, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!224 &2047234744 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8917637509502422691, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-  m_PrefabInstance: {fileID: 89605778562743937}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &89605778562743937
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -699,10 +597,6 @@ PrefabInstance:
     - target: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
       propertyPath: m_Name
       value: Fishing Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4656844147300198519, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
       propertyPath: m_Pivot.x
@@ -795,24 +689,15 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1755870451}
-    - targetCorrespondingSourceObject: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1755870457}
-    - targetCorrespondingSourceObject: {fileID: 3439652928121628426, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1755870456}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cf46b02754771843b4cd698310e9889, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1402586045}
-  - {fileID: 89605778562743937}
   - {fileID: 981671883}
   - {fileID: 1592692599}
   - {fileID: 301628197}
   - {fileID: 1509048768}
+  - {fileID: 89605778562743937}

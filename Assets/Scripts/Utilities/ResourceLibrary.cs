@@ -20,6 +20,13 @@ public class ResourceLibrary : SingletonScriptableObject<ResourceLibrary>
 	[SerializeField] private List<CloudLayers> cloudSprites; 
 	private Dictionary<int, List<Sprite>> cloudSpriteDict; public static Dictionary<int, List<Sprite>> CloudSprites { get { return Inst.cloudSpriteDict; } }
 
+	[Header("Blacksmithing")]
+	[SerializeField] private Sprite swordSprite; public static Sprite SwordSprite { get { return Inst.swordSprite; } }
+	[SerializeField] private Sprite axeSprite; public static Sprite AxeSprite { get { return Inst.axeSprite; } }
+	[SerializeField] private Sprite hammerSprite; public static Sprite HammerSprite { get { return Inst.hammerSprite; } }
+	[SerializeField] private Sprite maceSprite; public static Sprite MaceSprite { get { return Inst.maceSprite; } }
+	[SerializeField] private Sprite daggerSprite; public static Sprite DaggerSprite { get { return Inst.daggerSprite; } }
+
 	[Header("UI")]
 	[SerializeField] private GameObject inventoryCanvas; public static GameObject InventoryCanvas { get { return Inst.inventoryCanvas; } }
 

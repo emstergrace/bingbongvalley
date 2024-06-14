@@ -5,21 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Testing Scenes/TestScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 9e625656a6549934f9940bfd83aaf86b
   - enabled: 1
     path: Assets/Scenes/BingBongHome.unity
     guid: 0d9c76daa1afb4442a1f1377cc9349ec
-  - enabled: 0
-    path: Assets/Scenes/Testing Scenes/InternalTestOne.unity
-    guid: 8288a8f34197a4b48a984ecddc5c8515
-  - enabled: 0
-    path: Assets/Scenes/Testing Scenes/FishingTest.unity
-    guid: 43028affdc4556f4c8ee51fc68ca7438
   - enabled: 1
     path: Assets/Scenes/Testing Scenes/CloudTest.unity
     guid: eabdbb81a13d45347954f34f7ecb63fc

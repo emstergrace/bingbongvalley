@@ -4,18 +4,7 @@ using UnityEngine;
 using BayatGames.SaveGameFree;
 using BayatGames.SaveGameFree.Serializers;
 
-public class SaveManager : MonoBehaviour {
-
-    public static SaveManager Inst { get; private set; } = null;
-
-	private void Awake() {
-        Inst = this;
-        SaveGame.Serializer = new SaveGameBinarySerializer();
-        SaveGame.Encode = true;
-        SaveGame.EncodePassword = "AYEpSGhjzD3ItoLHh5nlqKTMgNW1aV3a";
-
-
-    } // End of Awake().
+public class SaveManager {
 
     public static bool SaveExists() {
         return SaveGame.Exists("existing save");
@@ -29,6 +18,7 @@ public class SaveManager : MonoBehaviour {
      * Garden
      * Potions
      * Day number
+     * Blackboard
      * */
 
     public static void ResetSaves() {
@@ -74,4 +64,8 @@ public class SaveManager : MonoBehaviour {
     public static void LoadBoons() {
 
 	}
+
+
+
+
 }
