@@ -28,6 +28,16 @@ public class Interactor : MonoBehaviour
 	private void OnTriggerExit2D(Collider2D other) {
 		if (interactObjs.Contains(other.gameObject)) interactObjs.Remove(other.gameObject);
 	}
+	private void OnTriggerEnter(Collider other) {
+		IInteractable obj = other.GetComponent<IInteractable>();
+		if (obj != null && !interactObjs.Contains(other.gameObject)) {
+			interactObjs.Add(other.gameObject);
+		}
+	}
+
+	private void OnTriggerExit(Collider other) {
+		if (interactObjs.Contains(other.gameObject)) interactObjs.Remove(other.gameObject);
+	}
 
 	private void TryInteract() {
 		if (interactObjs.Count > 0) {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using BayatGames.SaveGameFree;
 using System;
 
 public class QuestManager : MonoBehaviour
@@ -41,9 +40,11 @@ public class QuestManager : MonoBehaviour
 
     public void RemoveAllQuests() {
         for (int i = 0; i < QuestSOContainer.QuestList.Count; i++) {
+            /*
             if (SaveGame.Exists("quest_" + QuestSOContainer.QuestList[i].ID)) {
                 SaveGame.Delete("quest_" + QuestSOContainer.QuestList[i].ID);
             }
+            */
         }
         Quests.Clear();
         QuestDictionary.Clear();
@@ -56,9 +57,11 @@ public class QuestManager : MonoBehaviour
 
     public void LoadAllQuests() {
         for (int i = 0; i < QuestSOContainer.QuestList.Count; i++) {
+            /*
             if (SaveGame.Exists("quest_" + QuestSOContainer.QuestList[i].ID)) {
                 Inst.LoadQuest(QuestSOContainer.QuestList[i].ID);
             }
+            */
         }
     }
 

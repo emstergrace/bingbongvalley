@@ -5,17 +5,15 @@ using UnityEngine;
 public class BaseMoveController : MonoBehaviour
 {
     [SerializeField] protected float moveSpeed;
-    protected Vector2 moveInput;
+    [SerializeField] protected float turnSpeed = 20f;
+    protected Quaternion rotation;
+    protected Vector3 moveInput;
+
     protected Vector2 lastMove;
     protected bool isMoving = false;
-    private Vector3 tempPos = Vector3.zero;
-
-    protected bool isStuck = false; public bool IsStuck { get { return isStuck; } }
-    private int framesStuck = 0;
-    private int maxFramesStuck = 30;
 
     [SerializeField] protected Animator anim; protected bool hasAnim = false;
-    [SerializeField] protected Rigidbody2D rigidBody;
+    [SerializeField] protected Rigidbody rigidBody;
 
 	private void Start() {
         hasAnim = anim != null;
@@ -24,46 +22,36 @@ public class BaseMoveController : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate()
     {
-        tempPos = transform.position;
-        rigidBody.MovePosition(transform.position + new Vector3(moveInput.x * Time.fixedDeltaTime * moveSpeed, moveInput.y * Time.fixedDeltaTime * moveSpeed, 0f));
-        if (moveInput != Vector2.zero && Vector3.SqrMagnitude(transform.position - tempPos) < Mathf.Epsilon) {
-            framesStuck++;
-            if (framesStuck > maxFramesStuck) {
-                isStuck = true;
-			}
-		}
+
+        Vector3 desiredForward = Vector3.RotateTowards(transform.forward, moveInput, turnSpeed * Time.deltaTime, 0f);
+        rotation = Quaternion.LookRotation(desiredForward);
+        if (hasAnim) {
+            rigidBody.MovePosition(rigidBody.position + moveInput * moveSpeed * anim.deltaPosition.magnitude);
+        }
         else {
-            isStuck = false;
-            framesStuck = 0;
-		}
+            rigidBody.MovePosition(transform.position + moveInput * moveSpeed * Time.deltaTime);
+        }
+        
+        rigidBody.MoveRotation(rotation);
+
     } // End of Update().
 
     public void StopMovement() {
-        moveInput = Vector2.zero;
+        moveInput = Vector3.zero;
 	} // End of StopMovement().
 
     public virtual void HandleInput(Vector2 input) {
         if (GameManager.IsGamePaused) return;
 
-        moveInput = Vector2.zero;
+        moveInput = Vector3.zero;
         isMoving = false;
 
         if (input.sqrMagnitude > Mathf.Epsilon) {
-            moveInput = input.normalized;
+            moveInput.Set(input.x, 0f, input.y);
             lastMove = input;
             isMoving = true;
+		}
 
-            if (hasAnim) {
-                anim.SetFloat("MoveX", moveInput.x);
-                anim.SetFloat("MoveY", moveInput.y);
-			}
-		}
-		else {
-            if (hasAnim) {
-                anim.SetFloat("LastMoveX", lastMove.x);
-                anim.SetFloat("LastMoveY", lastMove.y);
-            }
-		}
         if (hasAnim)
             anim.SetBool("Moving", isMoving);
     } // End of HandleInput().

@@ -14,7 +14,7 @@ public class MoveToPosition : ActionNode
 
     protected override State OnUpdate() {
 
-        if (CloseToPosition() || context.moveController.IsStuck) {
+        if (CloseToPosition()) {
             context.moveController.HandleInput(Vector2.zero);
             return State.Success;
 		}

@@ -33,5 +33,5 @@ public class LocationManager : SingletonScriptableObject<LocationManager>
 	{
 		public string locationName;
 		[SerializeField] public SceneReference locationScene;
-	}
+	} // End of LocationStruct.
 }

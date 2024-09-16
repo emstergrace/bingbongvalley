@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
-using FMOD.Studio;
+//using FMODUnity;
+//using FMOD.Studio;
 
 public class FMODEvents : MonoBehaviour
 {
     
     [field: Header("Test Event")]
-    [field: SerializeField] public EventReference TestEvent { get; private set; }
+   // [field: SerializeField] public EventReference TestEvent { get; private set; }
     
     public static FMODEvents instance { get; private set; }
 
